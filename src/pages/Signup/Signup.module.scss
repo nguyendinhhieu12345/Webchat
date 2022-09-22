@@ -3,64 +3,49 @@
     padding: 0;
     box-sizing: border-box;
 }
-.wrapper {
-    display: flex;
-    width: 100%;
-    height: 100%;
-    background-color: #fafafa;
-}
-.img-login {
-    width: 50%;
-}
-.img-login img {
-    width: 75%;
-    position: relative;
-    left: 30%;
-}
-.wrap-form-login {
-    width: 50%;
-    position: relative;
-    border: none;
-    border-radius: 10px;
+body {
     background-image: radial-gradient(closest-side at 50% 135%, #ffffff 50%, #eceff1 100%);
 }
-.form-login {
-    border: none;
+.wrapper {
+    width: 400px;
+    height: 85vh;
+    background-color: #fafafa;
+    border: 1px solid black;
+    justify-content: center;
     align-items: center;
     text-align: center;
-    justify-content: center;
-    position: absolute;
-    left: 10%;
-    top: 15%;
-    padding: 20px 60px;
+    position: relative;
+    left: 40%;
+    top: 20px;
     box-shadow: 0 4px 20px rgb(0 0 0 / 7%);
-}
-.form-login h1 {
-    font-size: 75px;
-    margin-bottom: 20px;
-}
-.form {
-    margin-bottom: 20px;
-    font-size: 20px;
-}
-.form input {
-    padding: 9px 0 7px 8px;
-    margin-left: 5px;
-    width: 260px;
-    margin-bottom: 10px;
     border: none;
 }
-.form-item {
-    margin-bottom: 15px;
-    font-size: 18px;
+.wrapper h1 {
+    margin: 30px;
+    font-size: 40px;
+}
+.form-signup {
+    margin: 20px;
     display: flex;
-    gap: 50px;
+    flex-direction: column;
+    align-items: stretch;
 }
-.form-item a {
-    text-decoration: none;
+.form-signup input {
+    margin: 3px;
+    padding: 10px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
 }
-.btn-login {
-    margin: 15px 0;
+.form-signup p {
+    color: rgba(var(--f52, 142, 142, 142), 1);
+    font-size: 15px;
+    line-height: 16px;
+    margin: 15px 0 5px 0;
+    text-align: center;
+}
+.btn-signup {
+    margin: 20px 0;
     font-size: 20px;
     text-decoration: none;
     list-style: none;
@@ -68,18 +53,20 @@
     border-radius: 10px;
     font-weight: 600;
     background-color: pink;
-    padding: 10px;
     opacity: 0.6;
+    padding: 10px;
+    width: 90%;
+    border: none;
+    position: relative;
+    left: 5%;
 }
-.btn-login:hover {
+.btn-signup:hover {
     opacity: 1;
 }
 .label-text {
     margin-top: 10px;
     font-size: 18px;
-    position: relative;
 }
-
 .label-or {
     display: flex;
     justify-content: space-around;
@@ -88,7 +75,7 @@
     text-decoration: line-through;
     background-color: rgba(219, 219, 219, 1);
     height: 1px;
-    width: 25%;
+    width: 15%;
     position: relative;
     top: 20px;
 }
@@ -96,7 +83,7 @@
     text-decoration: line-through;
     background-color: rgba(219, 219, 219, 1);
     height: 1px;
-    width: 25%;
+    width: 15%;
     position: relative;
     right: 0;
     top: 20px;
@@ -130,6 +117,6 @@
 .goog:hover {
     color: red;
 }
-.signup:hover {
+.signin:hover {
     color: red;
 }

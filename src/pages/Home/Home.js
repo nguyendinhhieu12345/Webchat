@@ -1,5 +1,7 @@
 import classNames from 'classnames/bind';
 import styles from './Home.module.scss';
+import Button from '~/layout/components/Button';
+import { ConfigRouter } from '~/config';
 //icon
 import { BsCheck2Circle } from 'react-icons/bs';
 //component
@@ -8,7 +10,18 @@ const cx = classNames.bind(styles);
 function Home() {
     return (
         <div className={cx('wrapper')}>
-            <h1>Home</h1>
+            <div className={cx('des')}>
+                <div className={cx('dex-text')}>
+                    <h1>Cuộc gọi và tin nhắn miễn phí và bảo mật đến mọi người, ở bất kỳ đâu</h1>
+                    <h3>Duy trì các trò chuyện của bạn dù bạn ở bất kỳ đâu.</h3>
+                    <Button to={ConfigRouter.Login} className={cx('btn-login')}>
+                        Đăng nhập ngay
+                    </Button>
+                </div>
+                <div className={cx('des-img')}>
+                    <img src={images.connect}></img>
+                </div>
+            </div>
         </div>
     );
 }
