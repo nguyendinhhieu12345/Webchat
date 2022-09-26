@@ -8,40 +8,37 @@ import { FaSearch, FaCaretDown, FaCommentDots, FaUser, FaUsers } from 'react-ico
 import images from '~/asset/images';
 import { ConfigRouter } from '~/config';
 import HeaderChat from '~/layout/components/HeaderChat';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
+//
+import ShowChat from '~/layout/components/showChat';
+import MessChat from '~/layout/components/messChat';
+import SettingCHat from '~/layout/components/settingCHat';
 const cx = classNames.bind(styles);
 function Home() {
     const [tab, setTab] = useState(0);
     const chat = useRef();
     const friend = useRef();
     const group = useRef();
-    const tonggle = (index) => {
-        console.log('tab trc set', tab);
-        setTab(index);
-        console.log('tab sau set', tab);
+    const tonggle = () => {
         if (tab === 0) {
-            chat.current.style.display === 'none'
-                ? (chat.current.style.display = 'block')
-                : (chat.current.style.display = 'none');
+            chat.current.style.display = 'block';
             friend.current.style.display = 'none';
             group.current.style.display = 'none';
-            console.log('succ');
         }
         if (tab === 1) {
-            friend.current.style.display === 'none'
-                ? (friend.current.style.display = 'block')
-                : (friend.current.style.display = 'none');
+            friend.current.style.display = 'block';
             group.current.style.display = 'none';
             chat.current.style.display = 'none';
         }
         if (tab === 2) {
-            group.current.style.display === 'none'
-                ? (group.current.style.display = 'block')
-                : (group.current.style.display = 'none');
+            group.current.style.display = 'block';
             chat.current.style.display = 'none';
             friend.current.style.display = 'none';
         }
     };
+    useEffect(() => {
+        tonggle();
+    }, [tab]);
     return (
         <div className={cx('wrapper')}>
             <HeaderChat />
@@ -49,19 +46,21 @@ function Home() {
                 <div className={cx('content-left')}>
                     <ul className={cx('option')}>
                         <li>
-                            <FaCommentDots className={cx('icon-option')} onClick={() => tonggle(0)} />
+                            <FaCommentDots className={cx('icon-option')} onClick={() => setTab(0)} />
                         </li>
                         <li>
-                            <FaUser className={cx('icon-option')} onClick={() => tonggle(1)} />
+                            <FaUser className={cx('icon-option')} onClick={() => setTab(1)} />
                         </li>
                         <li>
-                            <FaUsers className={cx('icon-option')} onClick={() => tonggle(2)} />
+                            <FaUsers className={cx('icon-option')} onClick={() => setTab(2)} />
                         </li>
                     </ul>
                 </div>
                 <div className={cx('content-right')}>
                     <div className={tab === 0 ? cx('active') : cx('tab-content')} ref={chat}>
-                        <h1>chat</h1>
+                        <ShowChat className={cx('showchat')}></ShowChat>
+                        <MessChat className={cx('messchat')}></MessChat>
+                        <SettingCHat className={cx('settingchat')}></SettingCHat>
                     </div>
                     <div className={tab === 1 ? cx('active') : cx('tab-content')} ref={friend}>
                         <h1>friend</h1>

@@ -8,12 +8,12 @@
 }
 .content-left {
     width: 60px;
-    height: 90vh;
+    height: 89vh;
     background-color: #0091ff;
 }
 .content-right {
     width: 96%;
-    height: 90vh;
+    height: 89vh;
     //background-color: #000;
     color: #000;
 }
@@ -36,4 +36,7 @@
 }
 .tab-content {
     display: none;
+}
+.active {
+    display: flex !important;
 }
