@@ -1,12 +1,13 @@
 import classNames from 'classnames/bind';
 import styles from './settingChat.module.scss';
 import images from '~/asset/images';
+import { forwardRef } from 'react';
 
 const cx = classNames.bind(styles);
 
-function settingChat() {
+function settingChat(props, ref) {
     return (
-        <div className={cx('wrapper')}>
+        <div className={cx('wrapper')} ref={ref}>
             <header className={cx('header')}>
                 <h2>Thông tin hội thoại</h2>
             </header>
@@ -22,4 +23,4 @@ function settingChat() {
     );
 }
 
-export default settingChat;
+export default forwardRef(settingChat);

@@ -2,9 +2,13 @@ import classNames from 'classnames/bind';
 import styles from './messChat.module.scss';
 import images from '~/asset/images';
 import { FaUserPlus, FaSearch, FaVideo, FaBars, FaPaperPlane } from 'react-icons/fa';
+import { forwardRef } from 'react';
 const cx = classNames.bind(styles);
 
-function messChat() {
+function messChat(props, ref) {
+    const handleSetting = () => {
+        document.getElementsByClassName(`${cx('wrapper')}`)[0].style.width = '80%';
+    };
     return (
         <div className={cx('wrapper')}>
             <header className={cx('header-chat')}>
@@ -19,7 +23,9 @@ function messChat() {
                     <FaUserPlus className={cx('icon-option')} />
                     <FaSearch className={cx('icon-option')} />
                     <FaVideo className={cx('icon-option')} />
-                    <FaBars className={cx('icon-option')} />
+                    <button className={cx('btnSetting')} ref={ref} onClick={props.onClick}>
+                        <FaBars className={cx('icon-option')} onClick={handleSetting} />
+                    </button>
                 </div>
             </header>
             <section className={cx('content-chat')}>
@@ -30,4 +36,4 @@ function messChat() {
     );
 }
 
-export default messChat;
+export default forwardRef(messChat);

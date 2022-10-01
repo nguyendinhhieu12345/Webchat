@@ -2,8 +2,6 @@ import classNames from 'classnames/bind';
 import styles from './Home.module.scss';
 import Button from '~/layout/components/Button';
 import { ConfigRouter } from '~/config';
-//icon
-import { BsCheck2Circle } from 'react-icons/bs';
 //component
 import images from '~/asset/images';
 const cx = classNames.bind(styles);

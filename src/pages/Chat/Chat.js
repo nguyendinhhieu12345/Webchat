@@ -12,13 +12,17 @@ import { useState, useRef, useEffect } from 'react';
 //
 import ShowChat from '~/layout/components/showChat';
 import MessChat from '~/layout/components/messChat';
-import SettingCHat from '~/layout/components/settingCHat';
+import SettingCHat from '~/layout/components/settingChat';
+import Friends from '~/layout/components/Friends';
+import Group from '~/layout/components/Group';
 const cx = classNames.bind(styles);
 function Home() {
     const [tab, setTab] = useState(0);
     const chat = useRef();
     const friend = useRef();
     const group = useRef();
+    const setting = useRef();
+    const componentSetting = useRef();
     const tonggle = () => {
         if (tab === 0) {
             chat.current.style.display = 'block';
@@ -39,6 +43,11 @@ function Home() {
     useEffect(() => {
         tonggle();
     }, [tab]);
+    const handleSetting = () => {
+        componentSetting.current.style.display === 'none'
+            ? (componentSetting.current.style.display = 'block')
+            : (componentSetting.current.style.display = 'none');
+    };
     return (
         <div className={cx('wrapper')}>
             <HeaderChat />
@@ -59,14 +68,14 @@ function Home() {
                 <div className={cx('content-right')}>
                     <div className={tab === 0 ? cx('active') : cx('tab-content')} ref={chat}>
                         <ShowChat className={cx('showchat')}></ShowChat>
-                        <MessChat className={cx('messchat')}></MessChat>
-                        <SettingCHat className={cx('settingchat')}></SettingCHat>
+                        <MessChat className={cx('messchat')} ref={setting} onClick={handleSetting}></MessChat>
+                        <SettingCHat className={cx('settingchat')} ref={componentSetting}></SettingCHat>
                     </div>
                     <div className={tab === 1 ? cx('active') : cx('tab-content')} ref={friend}>
-                        <h1>friend</h1>
+                        <Friends />
                     </div>
                     <div className={tab === 2 ? cx('active') : cx('tab-content')} ref={group}>
-                        <h1>Group</h1>
+                        <Group />
                     </div>
                 </div>
             </div>

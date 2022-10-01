@@ -4,8 +4,9 @@
     box-sizing: border-box;
 }
 .wrapper {
-    width: 62%;
+    //width: 60%;
     border-right: 1px solid #ccc;
+    flex: 1;
 }
 .header-chat {
     width: 100%;
@@ -16,7 +17,6 @@
     white-space: nowrap;
     overflow: hidden;
     cursor: pointer;
-    margin-left: 10px;
     position: relative;
 }
 .img {
@@ -84,4 +84,9 @@
     font-size: 35px;
     color: #000;
     background-color: white;
+}
+button {
+    cursor: pointer;
+    border: none;
+    font-size: 18px;
 }
