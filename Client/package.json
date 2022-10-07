@@ -10,7 +10,12 @@
         "@tippyjs/react": "^4.2.6",
         "antd": "^4.23.4",
         "classnames": "^2.3.1",
+<<<<<<< HEAD:Client/package.json
         "firebase": "^9.10.0",
+=======
+        "mongodb": "^4.10.0",
+        "mongoose": "^6.6.4",
+>>>>>>> 9697fc246fbc1c1315651aca977a3dd6efeb4fcd:package.json
         "normalize.css": "^8.0.1",
         "react": "^18.1.0",
         "react-dom": "^18.1.0",
