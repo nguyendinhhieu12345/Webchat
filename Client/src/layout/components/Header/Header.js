@@ -21,7 +21,7 @@ function Header() {
                 </Button>
             </div>
             <div className={cx('signup')}>
-                <Button to={ConfigRouter.Login} className={cx('btn-signup')}>
+                <Button to={ConfigRouter.Signup} className={cx('btn-signup')}>
                     Đăng ký
                 </Button>
             </div>
