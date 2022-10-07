@@ -3,10 +3,28 @@ import styles from './Login.module.scss';
 import { ConfigRouter } from '~/config';
 import Button from '~/layout/components/Button';
 import { FaUser, FaLock, FaFacebook, FaGoogle } from 'react-icons/fa';
+//
+import { addDocument } from '../../Context/service';
+import firebase, { auth, db } from '../../LoginWith/config';
+
 //component
 import images from '~/asset/images';
 const cx = classNames.bind(styles);
+const fbProvider = new firebase.auth.FacebookAuthProvider();
+const googleProvider = new firebase.auth.GoogleAuthProvider();
 function Home() {
+    const handleLogin = async (provider) => {
+        const { additionalUserInfo, user } = await auth.signInWithPopup(provider);
+        if (additionalUserInfo?.isNewUser) {
+            addDocument('users', {
+                displayName: user.displayName,
+                email: user.email,
+                photoURL: user.photoURL,
+                uid: user.uid,
+                providerId: additionalUserInfo.providerId,
+            });
+        }
+    };
     return (
         <div className={cx('wrapper')}>
             <div className={cx('img-login')}>
@@ -40,10 +58,10 @@ function Home() {
                             <div className={cx('line-right')}></div>
                         </div>
                         <div className={cx('icon-login')}>
-                            <Button className={cx('face')}>
+                            <Button className={cx('face')} onClick={() => handleLogin(fbProvider)}>
                                 <FaFacebook />
                             </Button>
-                            <Button className={cx('goog')}>
+                            <Button className={cx('goog')} onClick={() => handleLogin(googleProvider)}>
                                 <FaGoogle />
                             </Button>
                         </div>

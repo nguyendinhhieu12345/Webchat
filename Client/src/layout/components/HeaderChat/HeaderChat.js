@@ -9,7 +9,10 @@ import { FaSearch, FaCaretDown } from 'react-icons/fa';
 //component
 import { ConfigRouter } from '~/config';
 import images from '~/asset/images';
-
+//
+import firebase, { auth } from '~/LoginWith/config';
+import { AuthContext } from '~/Context/AuthProvider';
+import { useContext } from 'react';
 const cx = classNames.bind(styles);
 
 function Header() {
@@ -21,6 +24,12 @@ function Header() {
             choose.current.style.display = 'inline-block';
         }
     };
+    const {
+        user: { displayName, photoURL },
+    } = useContext(AuthContext);
+    const handlelogout=()=>{
+        auth.signOut(); 
+    }
     return (
         <div className={cx('wrapper')}>
             <header className={cx('header')}>
@@ -33,14 +42,14 @@ function Header() {
                 </div>
                 <div className={cx('account')}>
                     <div className={cx('img')}>
-                        <img src={images.connect}></img>
+                        <img src={photoURL}></img>
                     </div>
                     <div className={cx('username')} onClick={handleInfor}>
                         <FaCaretDown />
                         <div className={cx('infor-username')} ref={choose}>
                             <ul className={cx('option')}>
                                 <li>
-                                    <h2 className={cx('name')}>Nguyễn Đình Hiếu</h2>
+                                    <h2 className={cx('name')}>{displayName}</h2>
                                 </li>
                                 <li>
                                     <Button className={cx('item-option')}>Hồ sơ của bạn</Button>
@@ -49,7 +58,11 @@ function Header() {
                                     <Button className={cx('item-option')}>Cài đặt</Button>
                                 </li>
                                 <li>
-                                    <Button className={cx('item-option')} to={ConfigRouter.Home}>
+                                    <Button
+                                        className={cx('item-option')}
+                                        to={ConfigRouter.Home}
+                                        onClick={handlelogout}
+                                    >
                                         Đăng xuất
                                     </Button>
                                 </li>
