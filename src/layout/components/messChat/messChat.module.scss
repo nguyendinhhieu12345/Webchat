@@ -1,12 +1,15 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 .wrapper {
     //width: 60%;
     border-right: 1px solid #ccc;
     flex: 1;
+    height: 89vh;
+}
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
 }
 .header-chat {
     width: 100%;
@@ -58,7 +61,21 @@
 .content-chat {
     width: 100%;
     background-color: #a6cdb1;
-    height: 80vh;
+    //height: 80vh;
+}
+.item-mess {
+    padding: 10px;
+    color: #000;
+    margin: 10px 0;
+    display: flex;
+    position: relative;
+}
+.show-mess {
+    overflow-y: auto;
+    height: 75vh;
+}
+.input-send {
+    height: 5vh;
     position: relative;
 }
 .input-chat {

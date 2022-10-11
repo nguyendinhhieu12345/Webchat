@@ -8,7 +8,7 @@ import { FaSearch, FaCaretDown, FaCommentDots, FaUser, FaUsers } from 'react-ico
 import images from '~/asset/images';
 import { ConfigRouter } from '~/config';
 import HeaderChat from '~/layout/components/HeaderChat';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect,useMemo,useContext } from 'react';
 //
 import ShowChat from '~/layout/components/showChat';
 import MessChat from '~/layout/components/messChat';

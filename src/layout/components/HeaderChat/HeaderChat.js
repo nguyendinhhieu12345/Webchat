@@ -1,6 +1,5 @@
 import classNames from 'classnames/bind';
 import styles from './HeaderChat.module.scss';
-import { Link } from 'react-router-dom';
 import Button from '../Button';
 import { useRef } from 'react';
 //icon
@@ -8,9 +7,8 @@ import { useRef } from 'react';
 import { FaSearch, FaCaretDown } from 'react-icons/fa';
 //component
 import { ConfigRouter } from '~/config';
-import images from '~/asset/images';
 //
-import firebase, { auth } from '~/LoginWith/config';
+import { auth } from '~/LoginWith/config';
 import { AuthContext } from '~/Context/AuthProvider';
 import { useContext } from 'react';
 const cx = classNames.bind(styles);
