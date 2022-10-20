@@ -48,7 +48,7 @@ function messChat(props, ref) {
     const [documents, setDocuments] = react.useState([]);
     let listchat = db.collection('messages');
     listchat = listchat.where('idroom', '==', roomid);
-    listchat.orderBy('createdAt', 'asc');
+
     //
     react.useEffect(() => {
         onSnapshot(listchat, (snapshot) => {
@@ -59,6 +59,7 @@ function messChat(props, ref) {
             setDocuments(chat);
         });
     }, [roomid]);
+    documents.sort((documentA, documentB) => documentA.createdAt - documentB.createdAt);
     return (
         <div className={cx('wrapper')}>
             {roomid ? (
