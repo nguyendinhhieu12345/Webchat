@@ -3,16 +3,17 @@ import styles from './Login.module.scss';
 import { ConfigRouter } from '~/config';
 import Button from '~/layout/components/Button';
 import { FaUser, FaLock, FaFacebook, FaGoogle } from 'react-icons/fa';
+import { useMemo, useState, useEffect } from 'react';
 //
-import { addDocument } from '../../Context/service';
-import firebase, { auth, db } from '../../LoginWith/config';
-
+import { addDocument } from '~/Context/service';
+import firebase, { auth, db } from '~/LoginWith/config';
+import { onSnapshot } from 'firebase/firestore';
 //component
 import images from '~/asset/images';
 const cx = classNames.bind(styles);
 const fbProvider = new firebase.auth.FacebookAuthProvider();
 const googleProvider = new firebase.auth.GoogleAuthProvider();
-function Home() {
+function Login() {
     const handleLogin = async (provider) => {
         const { additionalUserInfo, user } = await auth.signInWithPopup(provider);
         if (additionalUserInfo?.isNewUser) {
@@ -25,6 +26,52 @@ function Home() {
             });
         }
     };
+    const LoginCondition = useMemo(() => {
+        var conditions = [
+            {
+                fieldName: 'phone',
+                operator: '==',
+                compareValue: '0123456789',
+            },
+            {
+                fieldName: 'password',
+                operator: '==',
+                compareValue: 'dinhhieu',
+            },
+        ];
+        return conditions;
+    }, []);
+    const [documents, setDocuments] = useState([]);
+    const [succ, setSucc] = useState(false);
+    useEffect(() => {
+        let loginuser = db.collection('users');
+        loginuser = loginuser.where(
+            LoginCondition[0].fieldName,
+            LoginCondition[0].operator,
+            LoginCondition[0].compareValue,
+        );
+        loginuser = loginuser.where(
+            LoginCondition[1].fieldName,
+            LoginCondition[1].operator,
+            LoginCondition[1].compareValue,
+        );
+        const unsubscribe = onSnapshot(loginuser, (snapshot) => {
+            const documents = snapshot.docs.map((doc) => ({
+                ...doc.data(),
+                id: doc.id,
+            }));
+            setDocuments(documents);
+        });
+        return unsubscribe;
+    }, []);
+    const handlebtnLogin = () => {
+        if (documents != []) {
+            setSucc(true);
+        } else {
+            alert('số điện thoại hoặc mật khẩu không chính xác!!!');
+            setSucc(false);
+        }
+    };
     return (
         <div className={cx('wrapper')}>
             <div className={cx('img-login')}>
@@ -32,12 +79,12 @@ function Home() {
             </div>
             <div className={cx('wrap-form-login')}>
                 <div className={cx('form-login')}>
-                    <h1>Login</h1>
+                    <h1>Đăng nhập</h1>
                     <form className={cx('form')}>
                         <FaUser />
-                        <input placeholder="Tài khoản hoặc email" name="user" /> <br></br>
+                        <input placeholder="Số điện thoại" name="user" className={cx('phone')} /> <br></br>
                         <FaLock />
-                        <input placeholder="Mật khẩu" name="pass" />
+                        <input type="password" placeholder="Mật khẩu" name="pass" className={cx('pass')} />
                     </form>
                     <div className={cx('form-item')}>
                         <div>
@@ -48,7 +95,11 @@ function Home() {
                             Quên mật khẩu?
                         </a>
                     </div>
-                    <Button className={cx('btn-login')} to={ConfigRouter.Chat}>
+                    <Button
+                        className={cx('btn-login')}
+                        onClick={handlebtnLogin}
+                        to={succ ? ConfigRouter.Chat : ConfigRouter.Login}
+                    >
                         Đăng nhập
                     </Button>
                     <div className={cx('social-login-label')}>
@@ -78,4 +129,4 @@ function Home() {
     );
 }
 
-export default Home;
+export default Login;

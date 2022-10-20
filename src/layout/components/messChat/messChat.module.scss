@@ -63,16 +63,23 @@
     background-color: #a6cdb1;
     //height: 80vh;
 }
-.item-mess {
-    padding: 10px;
-    color: #000;
-    margin: 10px 0;
-    display: flex;
-    position: relative;
-}
 .show-mess {
     overflow-y: auto;
     height: 75vh;
+    position: relative;
+}
+.item-mess {
+    padding: 5px;
+    color: #000;
+    margin: 5px 0;
+    display: flex;
+}
+.mychat {
+    justify-content: flex-end;
+    margin-right: 10px;
+}
+.mychat img {
+    display: none;
 }
 .input-send {
     height: 5vh;

@@ -16,7 +16,7 @@ function showChat() {
         return {
             fieldName: 'members',
             operator: 'array-contains',
-            compareValue: '1GmWDCbOjebWzWL6t6zcwWB4TNK2',
+            compareValue: uid,
         };
     }, [uid]);
     const rooms = FirestoreUse('rooms', roomsCondition);
