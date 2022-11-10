@@ -1,23 +1,25 @@
 import classNames from 'classnames/bind';
 import styles from './Chat.module.scss';
-import Button from '~/layout/components/Button';
 
 //icon
-import { FaSearch, FaCaretDown, FaCommentDots, FaUser, FaUsers } from 'react-icons/fa';
+import { FaCommentDots, FaUser, FaUsers } from 'react-icons/fa';
 //component
 import images from '~/asset/images';
 import { ConfigRouter } from '~/config';
 import HeaderChat from '~/layout/components/HeaderChat';
-import { useState, useRef, useEffect,useMemo,useContext } from 'react';
+import { useState, useRef, useEffect } from 'react';
 //
 import ShowChat from '~/layout/components/showChat';
 import MessChat from '~/layout/components/messChat';
 import SettingCHat from '~/layout/components/settingChat';
 import Friends from '~/layout/components/Friends';
 import Group from '~/layout/components/Group';
+import ShowFriends from '~/layout/components/showFriends';
+import Modaladdfr from '~/layout/components/Modaladdfr';
 const cx = classNames.bind(styles);
 function Home() {
     const [tab, setTab] = useState(0);
+    const [modalAdd,setModalAdd] = useState(false);
     const chat = useRef();
     const friend = useRef();
     const group = useRef();
@@ -44,9 +46,9 @@ function Home() {
         tonggle();
     }, [tab]);
     const handleSetting = () => {
-        componentSetting.current.style.display === 'none'
-            ? (componentSetting.current.style.display = 'block')
-            : (componentSetting.current.style.display = 'none');
+        componentSetting.current.style.display === 'block'
+            ? (componentSetting.current.style.display = 'none')
+            : (componentSetting.current.style.display = 'block');
     };
     return (
         <div className={cx('wrapper')}>
@@ -72,10 +74,14 @@ function Home() {
                         <SettingCHat className={cx('settingchat')} ref={componentSetting}></SettingCHat>
                     </div>
                     <div className={tab === 1 ? cx('active') : cx('tab-content')} ref={friend}>
+                        <ShowFriends className={cx('showfriends')} modaladd={setModalAdd}/> 
                         <Friends />
+                        {modalAdd && <Modaladdfr modaladd={setModalAdd}/>}
                     </div>
                     <div className={tab === 2 ? cx('active') : cx('tab-content')} ref={group}>
+                        <ShowFriends className={cx('showfriends')} modaladd={setModalAdd}/>
                         <Group />
+                        {modalAdd && <Modaladdfr modaladd={setModalAdd}/>}
                     </div>
                 </div>
             </div>

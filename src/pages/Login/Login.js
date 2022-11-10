@@ -3,13 +3,18 @@ import styles from './Login.module.scss';
 import { ConfigRouter } from '~/config';
 import Button from '~/layout/components/Button';
 import { FaUser, FaLock, FaFacebook, FaGoogle } from 'react-icons/fa';
-import { useMemo, useState, useEffect } from 'react';
+import react, { useMemo, useState, useEffect } from 'react';
+import { useNavigate,Navigate } from 'react-router-dom';
 //
+import { AuthContext } from '~/Context/AuthProvider';
+
 import { addDocument } from '~/Context/service';
+
 import firebase, { auth, db } from '~/LoginWith/config';
-import { onSnapshot } from 'firebase/firestore';
+import { onSnapshot, getDocs, child, get, where,collectionGroup, query } from 'firebase/firestore';
 //component
 import images from '~/asset/images';
+
 const cx = classNames.bind(styles);
 const fbProvider = new firebase.auth.FacebookAuthProvider();
 const googleProvider = new firebase.auth.GoogleAuthProvider();
@@ -24,54 +29,54 @@ function Login() {
                 uid: user.uid,
                 providerId: additionalUserInfo.providerId,
             });
+            addDocument('friend',{
+                uid: user.uid
+            })
         }
     };
-    const LoginCondition = useMemo(() => {
-        var conditions = [
-            {
-                fieldName: 'phone',
-                operator: '==',
-                compareValue: '0123456789',
-            },
-            {
-                fieldName: 'password',
-                operator: '==',
-                compareValue: 'dinhhieu',
-            },
-        ];
-        return conditions;
-    }, []);
-    const [documents, setDocuments] = useState([]);
-    const [succ, setSucc] = useState(false);
+    //
+    const { user, setUser } = react.useContext(AuthContext);
+    const history = useNavigate();
+    const [phoneInput, setPhoneInput] = useState();
+    const [passwordInput, setPasswordInput] = useState();
+    const [currentUser, setCurrentUser] = useState([]);
+    const [userlocal, setUserlocal] = useState(()=>{
+        const storageUser=JSON.parse(localStorage.getItem('user'))
+        return storageUser
+    });
+    const handleBtnLogin = async () => {
+        if(phoneInput === undefined || passwordInput === undefined)
+        {
+            alert("Số điện thoại hoặc mật khẩu không chính xác!!!")
+        }
+        else{
+            let loginUser = db.collection('users');
+            loginUser.where('phone', '==', phoneInput);
+            loginUser = loginUser.where('password', '==', passwordInput);
+            await getDocs(loginUser)
+                .then((snapshot) => {
+                        setUser(
+                            snapshot.docs[0].data()
+                        );
+                        setUserlocal(()=>{
+                            const {displayName,photoURL,uid, phone}=snapshot.docs[0].data()
+                            const userLogin=[displayName,photoURL,uid, phone]
+                            const jsonUser=JSON.stringify(userLogin)
+                            localStorage.setItem("user", jsonUser);
+                            return snapshot.docs[0].data()
+                        })
+                })
+                .catch((error) => {
+                    alert("Số điện thoại hoặc mật khẩu không chính xác!!!")
+                    console.log(error)
+                });
+        }
+    };
     useEffect(() => {
-        let loginuser = db.collection('users');
-        loginuser = loginuser.where(
-            LoginCondition[0].fieldName,
-            LoginCondition[0].operator,
-            LoginCondition[0].compareValue,
-        );
-        loginuser = loginuser.where(
-            LoginCondition[1].fieldName,
-            LoginCondition[1].operator,
-            LoginCondition[1].compareValue,
-        );
-        const unsubscribe = onSnapshot(loginuser, (snapshot) => {
-            const documents = snapshot.docs.map((doc) => ({
-                ...doc.data(),
-                id: doc.id,
-            }));
-            setDocuments(documents);
-        });
-        return unsubscribe;
-    }, []);
-    const handlebtnLogin = () => {
-        if (documents != []) {
-            setSucc(true);
-        } else {
-            alert('số điện thoại hoặc mật khẩu không chính xác!!!');
-            setSucc(false);
+        if (localStorage.getItem('user')) {
+            history(ConfigRouter.Chat);
         }
-    };
+    }, [user,history]);
     return (
         <div className={cx('wrapper')}>
             <div className={cx('img-login')}>
@@ -82,9 +87,21 @@ function Login() {
                     <h1>Đăng nhập</h1>
                     <form className={cx('form')}>
                         <FaUser />
-                        <input placeholder="Số điện thoại" name="user" className={cx('phone')} /> <br></br>
+                        <input
+                            placeholder="Số điện thoại"
+                            name="phone"
+                            className={cx('phone')}
+                            onChange={(e) => setPhoneInput(e.target.value)}
+                        />
+                        <br></br>
                         <FaLock />
-                        <input type="password" placeholder="Mật khẩu" name="pass" className={cx('pass')} />
+                        <input
+                            type="password"
+                            placeholder="Mật khẩu"
+                            name="pass"
+                            onChange={(e) => setPasswordInput(e.target.value)}
+                            className={cx('pass')}
+                        />
                     </form>
                     <div className={cx('form-item')}>
                         <div>
@@ -95,11 +112,7 @@ function Login() {
                             Quên mật khẩu?
                         </a>
                     </div>
-                    <Button
-                        className={cx('btn-login')}
-                        onClick={handlebtnLogin}
-                        to={succ ? ConfigRouter.Chat : ConfigRouter.Login}
-                    >
+                    <Button className={cx('btn-login')} onClick={handleBtnLogin}>
                         Đăng nhập
                     </Button>
                     <div className={cx('social-login-label')}>

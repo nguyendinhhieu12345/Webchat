@@ -1,8 +1,3 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 .wrapper {
     width: 100%;
     height: 80px;
@@ -66,6 +61,7 @@
     justify-content: center;
     text-align: center;
     align-items: center;
+    z-index: 9999;
 }
 .account:hover {
     cursor: pointer;
@@ -121,4 +117,100 @@
     padding: 7px;
     width: 100%;
     border-bottom: 1px solid #ccc;
+}
+:root {
+    --primary-color: #e26e70;
+}
+.model {
+    position: absolute;
+    top: 10%;
+    justify-content: center;
+    height: 90vh;
+    display: block;
+    width: 100%;
+    z-index: 9999;
+}
+.model-inner {
+    width: 350px;
+    height: 450px;
+    position: relative;
+    top: 10%;
+    margin: 0 auto;
+    background: white;
+    border-radius: 5px;
+    overflow: hidden;
+    animation: modelshow 0.2s linear;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+        rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+.headerInf {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background: var(--primary-color);
+    color: white;
+}
+.headerInf p {
+    font-size: 25px;
+}
+.body {
+    padding: 15px;
+}
+.imgProf {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 4px solid var(--primary-color);
+    overflow: hidden;
+    transition: 0.5s;
+    margin: 0 0 10px 0;
+    position: relative;
+    left: 35%;
+}
+.imgProf img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+    object-position: center;
+}
+.body h2 {
+    margin: 10px;
+}
+.body h4 {
+    text-align: left;
+    margin: 15px;
+    font-size: 20px;
+}
+.body p {
+    text-align: left;
+    margin: 15px;
+    font-size: 16px;
+}
+.footer {
+    padding: 15px;
+    text-align: right;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+.footer button {
+    padding: 10px 20px;
+    color: white;
+    background: var(--primary-color);
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+@keyframes modelshow {
+    from {
+        top: -200px;
+        opacity: 0;
+    }
+    to {
+        top: 40%;
+        opacity: 1;
+    }
 }

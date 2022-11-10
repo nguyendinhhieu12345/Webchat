@@ -11,7 +11,6 @@ const useFirestore = (collection, condition) => {
                 setDocuments([]);
                 return;
             }
-
             collectionRef = collectionRef.where(condition.fieldName, condition.operator, condition.compareValue);
         }
         const unsubscribe = onSnapshot(collectionRef, (snapshot) => {

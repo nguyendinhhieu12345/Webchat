@@ -1,5 +1,6 @@
 .wrapper {
     width: 20%;
+    display: none;
 }
 .header {
     height: 70px;
@@ -39,4 +40,9 @@
     justify-content: center;
     align-items: center;
     margin: 10px;
+}
+.edit-name {
+    margin-left: 5px;
+    font-size: 25px;
+    margin-top: 2px;
 }

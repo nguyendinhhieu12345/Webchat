@@ -1,3 +1,10 @@
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+.col-1-5 {
+    width: 20%;
+}
 .wrapper {
     width: 100%;
     height: 89vh;
@@ -17,8 +24,8 @@
     font-size: 45px;
 }
 .img {
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     overflow: hidden;
     margin: 5px;
@@ -60,4 +67,210 @@
 .infor-list h2 {
     margin: 10px;
     font-size: 25px;
+}
+
+.group-name {
+    font-weight: 800;
+    font-size: 20px;
+    font-style: italic;
+}
+
+.add-room {
+    margin-top: 12px 12px;
+}
+
+.add-group {
+    position: absolute;
+    top: 40%;
+    left: 40%;
+}
+.all-group {
+    width: 100%;
+}
+.all-group .add-name {
+    margin-top: 10px;
+    color: black;
+    font-size: 18px;
+    margin-bottom: 12px;
+    font-weight: bold;
+}
+
+.all-group .add-des {
+    color: black;
+    font-size: 18px;
+    margin-bottom: 12px;
+    font-weight: bold;
+}
+
+.add-input-name {
+    margin-top: 12px;
+    width: 300px;
+    height: 35px;
+    background-color: rgb(208, 224, 244);
+    border-radius: 5%;
+}
+
+.add-input-des {
+    margin-top: 12px;
+    width: 300px;
+    height: 35px;
+    background-color: rgb(208, 224, 244);
+
+    border-radius: 5%;
+}
+.item-group-around {
+    text-align: center;
+}
+
+.btn-add {
+    margin-left: 12px;
+    padding: 12px 12px;
+}
+
+.icon-add {
+    margin-right: 12px;
+}
+
+.list-name {
+    margin-left: 24px;
+    font-size: 20px;
+    color: red;
+    margin-bottom: 12px;
+    font-weight: 800;
+}
+
+.evr-group {
+    margin: 5px 5px;
+    padding: 30px 0px;
+    border: 1px solid #ccc;
+    z-index: 1;
+    background-color: aliceblue;
+    border-radius: 5%;
+}
+
+.evr-group :hover {
+    opacity: 1;
+}
+
+.name-add-group {
+    font-size: 15px;
+    // text-align: center;
+    font-weight: 800;
+    font-style: italic;
+}
+
+.add-group {
+    border: 1px solid #ccc;
+    background-color: aliceblue;
+    border-radius: 2%;
+    padding: 30px;
+    box-shadow: 2px 2px #888888;
+}
+
+.btn-add-ok {
+    margin-right: 108px;
+    margin-left: 18px;
+    border: 1px solid #ccc;
+    padding: 3px 5px;
+    background-color: rgb(40, 95, 167);
+    color: white;
+    border-radius: 7%;
+    font-weight: 600;
+}
+
+.btn-add-ok:hover {
+    background-color: rgb(236, 152, 154);
+}
+
+.btn-add-cancel {
+    border: 1px solid #ccc;
+    padding: 3px 5px;
+    background-color: rgb(195, 194, 195);
+    color: red($color: #000000);
+    border-radius: 7%;
+    font-weight: 600;
+}
+
+.btn-add-cancel:hover {
+    background-color: rgb(236, 152, 154);
+}
+
+.perform-del-div {
+    border: 1px solid #ccc;
+    z-index: 2;
+    position: absolute;
+    top: 35%;
+    left: 39%;
+    padding: 50px;
+    background-color: aliceblue;
+    border-radius: 2%;
+    box-shadow: 2px 2px #888888;
+}
+
+.perform-del-icon {
+    font-size: 35px;
+    text-align: center;
+    margin-left: 45%;
+    margin-top: -20px;
+}
+
+.perform-del-div h2 {
+    font-style: italic;
+    margin-bottom: 12px;
+}
+
+.perform-del-div h2:hover {
+    color: red;
+}
+
+.perform-del-ok {
+    border: 1px solid #ccc;
+    margin-right: 76px;
+    margin-left: 37px;
+    font-size: 20px;
+    background-color: rgb(40, 95, 167);
+    border-radius: 10%;
+    padding: 5px;
+    color: white;
+}
+
+.perform-del-cancel {
+    border: 1px solid #ccc;
+    font-size: 20px;
+    background-color: rgb(195, 194, 195);
+    border-radius: 10%;
+    padding: 5px;
+}
+
+.perform-del-ok:hover {
+    background-color: rgb(236, 152, 154);
+}
+
+.perform-del-cancel:hover {
+    background-color: rgb(236, 152, 154);
+}
+
+.perform-del-h2 {
+    text-align: center;
+}
+
+.name-add-group p {
+    font-size: 20px;
+    padding: 5px;
+    border-bottom: 1px solid #ccc;
+}
+
+.perform-del-div p {
+    margin-top: 12px;
+    font-size: 18px;
+    border-bottom: 1px solid #ccc;
+    padding: 5px 0;
+    margin-bottom: 12px;
+    font-weight: 700;
+}
+
+.icon-2 {
+    font-size: 22px;
+    margin-right: 9px;
+    margin-top: 4px;
 }
