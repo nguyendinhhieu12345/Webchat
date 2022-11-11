@@ -14,6 +14,7 @@ import { AiFillBank } from 'react-icons/ai';
 import { Button, Avatar, Form, Alert } from 'antd';
 import styled from 'styled-components';
 import { UserAddOutlined } from '@ant-design/icons';
+import ModalInviteMember from '~/layout/components/Modaladdfr/ModalInviteMember';
 const cx = classNames.bind(styles);
 
 const ButtonGroupStyled = styled.div`
@@ -46,6 +47,9 @@ const HeaderStyled = styled.div`
     }
 `;
 function messChat(props, ref) {
+
+    
+    //const [form] = Form.useForm();
     const {
         roomid,
         rooms,
@@ -60,6 +64,9 @@ function messChat(props, ref) {
         setIsOpenFormInvite,
         isOpenFormInvite
     } = react.useContext(AppContext);
+
+
+    
     const handleSetting = () => {
         document.getElementsByClassName(`${cx('wrapper')}`)[0].style.width = '80%';
     };
@@ -92,18 +99,18 @@ function messChat(props, ref) {
             setChat('')
         }
     };
+    console.log(members + " test")
     //
     const handleinputchange = (e) => {
         setChat(e.target.value);
     };
     //
     const [documents, setDocuments] = react.useState([]);
-    
+    let listchat = db.collection('messages');
+    listchat = listchat.orderBy('createdAt', 'asc');
+    listchat.where('idroom', '==', roomid);
     //
     react.useEffect(() => {
-        let listchat = db.collection('messages');
-        //listchat = listchat.orderBy('createdAt', 'asc');
-        listchat = listchat.where('idroom', '==', selectedRoomId);
         onSnapshot(listchat, (snapshot) => {
             const chat = snapshot.docs.map((doc) => ({
                 ...doc.data(),
@@ -111,10 +118,7 @@ function messChat(props, ref) {
             }));
             setDocuments(chat);
         });
-    },[selectedRoomId]);
-    documents.sort((a,b)=>
-        a.createdAt-b.createdAt
-    )
+    }, [roomid]);
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
             if(chat!=='')
@@ -153,6 +157,9 @@ function messChat(props, ref) {
     const [inputNameGroup, setInputNameGrop] = react.useState('');
     const [inputDesGroup, setInputDesGroup] = react.useState('');
     const [testData, setTestData] = react.useState('');
+
+
+   
     const handleOkDes = () => {
         updateDoc(doc(db, 'rooms', selectedRoomId), {
             description: inputDesGroup,
@@ -185,8 +192,12 @@ function messChat(props, ref) {
         setOpenOption('none');
     };
 
-
-    console.log({selectedRoom})
+    
+    const showInvite = () => 
+    {
+        setIsOpenFormInvite(true)
+    }
+   
     return (
         <div className={cx('wrapper')}>
             {roomid ? (
@@ -352,7 +363,15 @@ function messChat(props, ref) {
                             <FaPaperPlane className={cx('send')} onClick={handlesubmit} />
                         </div>
                     </section>
-                    <ModalInviteMember/>
+                 
+                    <Form
+                          
+                            layout="vertical"
+                            className="open-des-form"
+                            style={{ display: isOpenFormInvite }}
+                        >
+                             <ModalInviteMember/>
+                    </Form>
                 </div>
             ) : (
                 <Alert
