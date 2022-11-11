@@ -61,7 +61,8 @@ function messChat(props, ref) {
         setIsOpenRenameDes,
         isOpenOption,
         setOpenOption,
-
+        setIsOpenFormInvite,
+        isOpenFormInvite
     } = react.useContext(AppContext);
 
 
@@ -191,8 +192,12 @@ function messChat(props, ref) {
         setOpenOption('none');
     };
 
-
-    console.log({selectedRoom})
+    
+    const showInvite = () => 
+    {
+        setIsOpenFormInvite(true)
+    }
+   
     return (
         <div className={cx('wrapper')}>
             {roomid ? (
@@ -216,7 +221,7 @@ function messChat(props, ref) {
                                 type="text"
                                 className={cx('icon-option')}
                                 icon={<UserAddOutlined />}
-                                // onClick={showInvite}
+                                onClick={showInvite}
                             >
                                 Mời
                             </Button>
@@ -358,8 +363,15 @@ function messChat(props, ref) {
                             <FaPaperPlane className={cx('send')} onClick={handlesubmit} />
                         </div>
                     </section>
-                    <ModalInviteMember/>
-                    
+                 
+                    <Form
+                          
+                            layout="vertical"
+                            className="open-des-form"
+                            style={{ display: isOpenFormInvite }}
+                        >
+                             <ModalInviteMember/>
+                    </Form>
                 </div>
             ) : (
                 <Alert
