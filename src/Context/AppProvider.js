@@ -11,6 +11,7 @@ export default function AppProvider({ children }) {
     const [isOpenRename, setIsOpenRename] = useState('none');
     const [isOpenRenameDes, setIsOpenRenameDes] = useState('none');
     const [isOpenOption, setOpenOption] = useState('none');
+    const [isOpenFormInvite, setIsOpenFormInvite] = useState('none')
 
 
     const [isRenameInput, setIsRenameInput] = useState('');
@@ -68,7 +69,9 @@ export default function AppProvider({ children }) {
                 isRenameInput, 
                 setIsRenameInput,
                 isRenameDesInput,
-                setIsRenameDesInput
+                setIsRenameDesInput,
+                isOpenFormInvite, 
+                setIsOpenFormInvite,
             }}
         >
             {children}

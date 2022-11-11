@@ -57,7 +57,8 @@ function messChat(props, ref) {
         setIsOpenRenameDes,
         isOpenOption,
         setOpenOption,
-
+        setIsOpenFormInvite,
+        isOpenFormInvite
     } = react.useContext(AppContext);
     const handleSetting = () => {
         document.getElementsByClassName(`${cx('wrapper')}`)[0].style.width = '80%';
@@ -184,6 +185,8 @@ function messChat(props, ref) {
         setOpenOption('none');
     };
 
+
+    console.log({selectedRoom})
     return (
         <div className={cx('wrapper')}>
             {roomid ? (
@@ -207,7 +210,7 @@ function messChat(props, ref) {
                                 type="text"
                                 className={cx('icon-option')}
                                 icon={<UserAddOutlined />}
-                                // onClick={showInvite}
+                                onClick={showInvite}
                             >
                                 Mời
                             </Button>
@@ -349,6 +352,7 @@ function messChat(props, ref) {
                             <FaPaperPlane className={cx('send')} onClick={handlesubmit} />
                         </div>
                     </section>
+                    <ModalInviteMember/>
                 </div>
             ) : (
                 <Alert

@@ -1,30 +1,20 @@
 import classNames from 'classnames/bind';
-import styles from './showChat.module.scss';
+import styles from './InviteMember.module.scss';
 import { AuthContext } from '~/Context/AuthProvider';
 import react, { useState } from 'react';
 import {  FaWindowClose } from 'react-icons/fa';
 import { Button } from 'antd';
 import getSearchFriend from '~/hooks/getSearchFriend';
-import getFriends from '~/hooks/getFriends';
-import { db } from '~/LoginWith/config';
 import { AppContext } from '~/Context/AppProvider';
 import {addGroup} from '~/Context/service';
-
-
-let dem = 0;
-
-
-
-
-
-
 
 const cx = classNames.bind(styles);
 function showChat({modaladd}) {
     const {
         selectedRoomId,
-        selectedRoom,
         members,
+        isOpenFormInvite, 
+        setIsOpenFormInvite,
     
     } = react.useContext(AppContext);
     const {
@@ -75,8 +65,8 @@ function showChat({modaladd}) {
     const tonggle = () => {
         if(tab === 0)
         {
-            btnSdt.current.style.backgroundColor = 'white';
-            btnEmail.current.style.backgroundColor = 'white';
+            btnSdt.current.style.backgroundColor = '#b2b1b1';
+            btnEmail.current.style.backgroundColor = '#b2b1b1';
             inputSdt.current.style.display = 'none';
             inputEmail.current.style.display = 'none';
             inputEmail2.current.value = '';
@@ -85,16 +75,16 @@ function showChat({modaladd}) {
         }
         if(tab === 1)
         {
-            btnSdt.current.style.backgroundColor = 'red';
-            btnEmail.current.style.backgroundColor = 'white';
+            btnSdt.current.style.backgroundColor = ' rgb(236, 152, 154)';
+            btnEmail.current.style.backgroundColor = '#b2b1b1';
             inputSdt.current.style.display = 'flex';
             inputEmail.current.style.display = 'none';
             inputEmail2.current.value = '';
         }
         if(tab === 2)
         {
-            btnSdt.current.style.backgroundColor = 'white';
-            btnEmail.current.style.backgroundColor = 'red';
+            btnSdt.current.style.backgroundColor = '#b2b1b1';
+            btnEmail.current.style.backgroundColor = 'rgb(236, 152, 154)';
             inputSdt.current.style.display = 'none';
             inputEmail.current.style.display = 'flex';
             inputSdt2.current.value = '';
@@ -115,24 +105,30 @@ function showChat({modaladd}) {
         addGroup(data.uid,selectedRoomId)
    
     }
+
+    const handleOpenInviteModal = () => 
+    {
+        setIsOpenFormInvite('none')
+    }
     return (
         <div className={cx('modal-container')}>
             <div className={cx('form-add-friend')}>
                 <form className={cx('form-friend')}>
                     <div className={cx('header')}>
-                        <h2>Thêm bạn</h2>
-                        <div className={cx('close')} onClick={()=>{modaladd(false)}}>
-                            <FaWindowClose className={cx('icon-close')}/>
+                        <h2>Mời bạn</h2>
+                        <div className={cx('close')} >
+                            <FaWindowClose className={cx('icon-close')} onClick= {handleOpenInviteModal}/>
                         </div>
                     </div>
                     <div className={cx('search')}>
                        <h2>Tìm theo</h2>
                        <div className={cx('btn-search')}>
-                            <Button ref={btnSdt} onClick={()=> {
+                            
+                            <Button className={cx('search-phone')} ref={btnSdt} onClick={()=> {
                                 setTab(1);
                                 sethienthi(false);
-                            }}>Số Điện Thoại</Button>
-                            <Button ref={btnEmail} onClick={()=> 
+                            }}>Phone</Button>
+                            <Button className={cx('search-email')} ref={btnEmail} onClick={()=> 
                             {
                                 setTab(2);
                                 sethienthi(false);
@@ -148,7 +144,7 @@ function showChat({modaladd}) {
                        </div>
                        <div className={cx('input-email')} ref={inputEmail}>
                             <input ref={inputEmail2}/>
-                            <FaWindowClose onClick={() => {
+                            <FaWindowClose  onClick={() => {
                                 setTab(0);
                             }}/>
                        </div>
@@ -165,7 +161,10 @@ function showChat({modaladd}) {
                         </div>)
                     }
                     <div className={cx('footer')}>
-                        <Button  onClick={()=>{modaladd(false)}}>Hủy</Button>
+                        <Button  onClick={()=>{
+                            handleOpenInviteModal()
+                        }
+                            }>Hủy</Button>
                         <Button onClick={() => {
                             handleInfor();
                             sethienthi(true);
