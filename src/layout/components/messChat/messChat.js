@@ -353,6 +353,7 @@ function messChat(props, ref) {
                         </div>
                     </section>
                     <ModalInviteMember/>
+                    
                 </div>
             ) : (
                 <Alert
