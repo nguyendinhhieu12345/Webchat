@@ -149,12 +149,14 @@ export default function Group() {
                     <Form.Item className={cx('add-des')} label="Mô tả" name="description">
                         <Input.TextArea className={cx('add-input-des')} placeholder="Nhập mô tả" />
                     </Form.Item>
+                    <div className={cx('btn-add-handle')}>
                     <button className={cx('btn-add-ok')} onClick={handleOk}>
                         Xác nhận
                     </button>
                     <button className={cx('btn-add-cancel')} onClick={handleCancel}>
                         Cancel
                     </button>
+                    </div>
                 </div>
             </Form>
 
@@ -164,13 +166,14 @@ export default function Group() {
                     <p>Xóa phòng</p>
                     <h2>Bạn có chắc xóa phòng: </h2>
                     <h2 className={cx('perform-del-h2')}>{roomName}</h2>
-
-                    <button onClick={handlePerformOK} className={cx('perform-del-ok')}>
-                        Có
-                    </button>
-                    <button onClick={handlePerformCancel} className={cx('perform-del-cancel')}>
-                        Không
-                    </button>
+                    <div className={cx('perform-del-handle')}>
+                        <button onClick={handlePerformOK} className={cx('perform-del-ok')}>
+                            Có
+                        </button>
+                        <button onClick={handlePerformCancel} className={cx('perform-del-cancel')}>
+                            Không
+                        </button>
+                    </div>
                 </div>
             </Form>
         </div>

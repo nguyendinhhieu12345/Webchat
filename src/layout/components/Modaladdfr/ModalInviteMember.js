@@ -65,8 +65,8 @@ function showChat({modaladd}) {
     const tonggle = () => {
         if(tab === 0)
         {
-            btnSdt.current.style.backgroundColor = '#b2b1b1';
-            btnEmail.current.style.backgroundColor = '#b2b1b1';
+            btnSdt.current.style.backgroundColor = 'rgba(0,0,0,0.1)';
+            btnEmail.current.style.backgroundColor = 'rgba(0,0,0,0.1)';
             inputSdt.current.style.display = 'none';
             inputEmail.current.style.display = 'none';
             inputEmail2.current.value = '';
@@ -76,14 +76,14 @@ function showChat({modaladd}) {
         if(tab === 1)
         {
             btnSdt.current.style.backgroundColor = ' rgb(236, 152, 154)';
-            btnEmail.current.style.backgroundColor = '#b2b1b1';
+            btnEmail.current.style.backgroundColor = 'rgba(0,0,0,0.1)';
             inputSdt.current.style.display = 'flex';
             inputEmail.current.style.display = 'none';
             inputEmail2.current.value = '';
         }
         if(tab === 2)
         {
-            btnSdt.current.style.backgroundColor = '#b2b1b1';
+            btnSdt.current.style.backgroundColor = 'rgba(0,0,0,0.1)';
             btnEmail.current.style.backgroundColor = 'rgb(236, 152, 154)';
             inputSdt.current.style.display = 'none';
             inputEmail.current.style.display = 'flex';
@@ -123,7 +123,6 @@ function showChat({modaladd}) {
                     <div className={cx('search')}>
                        <h2>Tìm theo</h2>
                        <div className={cx('btn-search')}>
-                            
                             <Button className={cx('search-phone')} ref={btnSdt} onClick={()=> {
                                 setTab(1);
                                 sethienthi(false);
@@ -135,7 +134,7 @@ function showChat({modaladd}) {
                             }}>Email</Button>
                        </div>
                        <div className={cx('input-number')} ref={inputSdt}>
-                            <input ref={inputSdt2}/>
+                            <input placeholder='Nhập số điện thoại' ref={inputSdt2}/>
                             <FaWindowClose onClick={() => {
                             setTab(0);
                             sethienthi(false);
@@ -143,7 +142,7 @@ function showChat({modaladd}) {
                             }/>
                        </div>
                        <div className={cx('input-email')} ref={inputEmail}>
-                            <input ref={inputEmail2}/>
+                            <input placeholder='Nhập email' ref={inputEmail2}/>
                             <FaWindowClose  onClick={() => {
                                 setTab(0);
                             }}/>
