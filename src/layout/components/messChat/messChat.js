@@ -9,10 +9,7 @@ import { addDocument } from '~/Context/service';
 import { db } from '~/LoginWith/config';
 import { onSnapshot } from 'firebase/firestore';
 import StatusAvatar from '../Modals/status-avatar';
-import { debounce } from 'lodash';
-import { getDatabase, ref, set } from 'firebase/database';
-import { doc, updateDoc, deleteField, deleteDoc, addDoc, orderByChild } from 'firebase/firestore';
-import { da } from 'date-fns/locale';
+import { doc, updateDoc} from 'firebase/firestore';
 import { AiFillBank } from 'react-icons/ai';
 import { Button, Avatar, Form, Alert } from 'antd';
 import styled from 'styled-components';
@@ -55,13 +52,13 @@ function messChat(props, ref) {
         rooms,
         members,
         selectedRoomId,
-        setIsInviteMemberVisible,
         isOpenRename,
         setIsOpenRename,
         isOpenRenameDes,
         setIsOpenRenameDes,
         isOpenOption,
         setOpenOption,
+
     } = react.useContext(AppContext);
     const handleSetting = () => {
         document.getElementsByClassName(`${cx('wrapper')}`)[0].style.width = '80%';
@@ -158,13 +155,18 @@ function messChat(props, ref) {
     const [inputDesGroup, setInputDesGroup] = react.useState('');
     const [testData, setTestData] = react.useState('');
 
-    const uidtest = 'VlPE6iJqfldJ3iDTHr8rfmZp1TY2';
-
-    const datatest = [''];
-
-    datatest.splice(0, 1, uidtest);
 
     const handleCancelOK1 = () => {
+
+        const bien = '12345'
+    
+        const uidtest = bien;
+
+        const datatest = [''];
+    
+        datatest.splice(0, 1, uidtest);
+
+        console.log({datatest})
         const roomRef = db.collection('rooms').doc(selectedRoomId);
 
         roomRef
@@ -246,7 +248,7 @@ function messChat(props, ref) {
                                 style={{ display: 'inline-block', position: 'relative' }}
                             >
                                 {
-                                    <Avatar.Group size="small" maxCount={2}>
+                                    <Avatar.Group size="small" maxCount={3}>
                                         {members.map((member, index) => (
                                             <StatusAvatar
                                                 status="green"
@@ -366,6 +368,10 @@ function messChat(props, ref) {
                                 </div>
                             </div>
                         </Form>
+
+                        <div>
+                            <button onClick={handleClick}>Test Thêm Phòng</button>
+                        </div>
                         <div className={cx('input-send')}>
                             <input
                                 className={cx('input-chat')}

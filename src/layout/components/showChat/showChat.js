@@ -20,7 +20,7 @@ function showChat() {
         };
     }, [uid]);
     const rooms = FirestoreUse('rooms', roomsCondition);
-    const { setRoomid,roomid,setSelectedRoomId  } = react.useContext(AppContext);
+    const { setRoomid,setSelectedRoomId  } = react.useContext(AppContext);
     return (
         <div className={cx('wrapper')}>
             {rooms.map((room) => (

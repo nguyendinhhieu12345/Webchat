@@ -6,10 +6,9 @@ import { Collapse, Typography, Button } from 'antd';
 import { AppContext } from '~/Context/AppProvider';
 import { AuthContext } from '~/Context/AuthProvider';
 import { addDocument } from '~/Context/service';
-import { Form, Modal, Input } from 'antd';
+import { Form, Input } from 'antd';
 import React, { useContext, useState } from 'react';
 import { faCheckSquare } from '@fortawesome/free-solid-svg-icons';
-import MessChat from '../messChat';
 import { doc, deleteDoc } from 'firebase/firestore';
 import { db } from '~/LoginWith/config';
 import { HiArchiveBoxXMark } from 'react-icons/hi2';
@@ -45,7 +44,7 @@ const LinkStyled = styled(Typography.Link)`
 `;
 
 export default function Group() {
-    const { rooms, setIsModalOpen, setSelectedRoomId, roomid, selectedRoomId } = React.useContext(AppContext);
+    const { rooms, setSelectedRoomId, selectedRoomId } = React.useContext(AppContext);
 
     const [form] = Form.useForm();
 

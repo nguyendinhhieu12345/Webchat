@@ -25,7 +25,7 @@ export default function AuthProvider({ children }) {
             else{
                 setUser({});
                 setIsLoading(false);
-                history();
+                // history();
             }
         });
 

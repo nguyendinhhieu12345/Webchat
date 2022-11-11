@@ -1,6 +1,5 @@
 import React, { useMemo, useContext } from 'react';
 import useFirestore from '~/hooks/useFirestore';
-import Firestore from '~/hooks/useFirestore';
 import { AuthContext } from './AuthProvider';
 import { useState } from 'react';
 export const AppContext = React.createContext();
@@ -12,6 +11,11 @@ export default function AppProvider({ children }) {
     const [isOpenRename, setIsOpenRename] = useState('none');
     const [isOpenRenameDes, setIsOpenRenameDes] = useState('none');
     const [isOpenOption, setOpenOption] = useState('none');
+
+
+    const [isRenameInput, setIsRenameInput] = useState('');
+
+    const [isRenameDesInput,setIsRenameDesInput] = useState('');
     const {
         user: { photoURL, uid },
     } = React.useContext(AuthContext);
@@ -20,6 +24,7 @@ export default function AppProvider({ children }) {
             fieldName: 'members',
             operator: 'array-contains',
             compareValue: uid,
+        
         };
     }, [uid]);
 
@@ -65,6 +70,10 @@ export default function AppProvider({ children }) {
                 setIsOpenRenameDes,
                 isOpenOption,
                 setOpenOption,
+                isRenameInput, 
+                setIsRenameInput,
+                isRenameDesInput,
+                setIsRenameDesInput
             }}
         >
             {children}

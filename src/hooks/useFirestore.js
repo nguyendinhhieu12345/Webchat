@@ -23,7 +23,7 @@ const useFirestore = (collection, condition) => {
         });
 
         return unsubscribe;
-    }, []);
+    }, [collection, condition]);
 
     return documents;
 };
