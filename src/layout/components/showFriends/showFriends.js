@@ -1,39 +1,12 @@
 import classNames from 'classnames/bind';
 import styles from './showFriends.module.scss';
-import images from '~/asset/images';
-import FirestoreUse from '~/hooks/useFirestore';
 import getFriends from '~/hooks/getFriends';
 import { AuthContext } from '~/Context/AuthProvider';
-import react, { useEffect, useState } from 'react';
-import { AppContext } from '~/Context/AppProvider';
-import { FaSearch,FaAddressBook,FaWindowClose } from 'react-icons/fa';
-import { readFriends } from '~/Context/service';
-import { db } from '~/LoginWith/config';
-import { collection, getDocs } from 'firebase/firestore';
+import react from 'react';
+import { FaSearch,FaAddressBook, FaUserPlus } from 'react-icons/fa';
 import { Button } from 'antd';
-
-
 const cx = classNames.bind(styles);
 function showChat({modaladd}) {
-    // console.log("ok")
-    //
-    // const friends = collection(db, 'friend')
-    // getDocs(friends)
-    // .then(res => {
-    //     const movs = res.docs.map(doc => ({
-    //         friend: doc.data().friends,
-    //         data: doc.data(),
-    //         id: doc.id,
-    //     }))
-    //     for(let i of movs)
-    //     {
-    //         for(let j of i.friend)
-    //         {
-    //             console.log(j)
-    //         }
-    //     }
-    // })
-    // .catch(err => err)
     const [tab, setTab] = react.useState(0);
     const buttonaddfr = react.useRef();
     const buttonsearch = react.useRef();
@@ -41,7 +14,7 @@ function showChat({modaladd}) {
     const closesearch = react.useRef();
     const inputtext = react.useRef();
     const resettext = react.useRef();
-    const tonggle = () => {
+    /*const tonggle = () => {
         if (tab === 0) {
             buttonaddfr.current.style.display = 'flex';
             buttonsearch.current.style.display = 'flex';
@@ -57,39 +30,12 @@ function showChat({modaladd}) {
     };
     react.useEffect(() => {
         tonggle();
-    }, [tab]);
-  
-
-    // const [tab2,settab2] = react.useState(0)
-    // const tonggle2 = () => {
-    //     if (tab === 0) {  
-    //         resettext.current.style.display = 'none';
-    //     }
-    //     else{
-            
-    //         resettext.current.style.display = 'block';
-    //     }
-    // };
-    
+    }, [tab]);*/
   
     const Resetinput = () => {
         inputtext.current.value = '';
         setTab1(0);
     }
-    // const Closetext = () => {
-    //    if(inputtext.current.value == '')
-    //    {
-    //     settab2(1);
-    //     console.log('ok')
-    //    }else
-    //    {
-    //     settab2(0);
-    //    }
-    // }
-    // react.useEffect(() => {
-    //     tonggle2();
-    // }, [tab2]);
-
   
     const {
         user: { photoURL, uid },
@@ -118,36 +64,18 @@ function showChat({modaladd}) {
         }else
         {
             setTab1(1);
-        
-
         }
     }
     return (
         <div className={cx('wrapper')}>
             <div className={cx('option')}>
-                <div className={cx('add-friend')} ref={buttonaddfr} onClick={()=>{modaladd(true)}}>
-                    <span>+</span>
-                    <FaAddressBook className={cx('icon-add-friend')}/>
-                    <span>Thêm Bạn</span>
-                </div>
-                <div className={cx('search-friend-icon')} ref ={buttonsearch} onClick={() => setTab(1)}>
-
+                <div className={cx('search-friend')} ref ={inputsearch}>
                     <FaSearch className={cx('icon-search')}/>
-                    <span>Tìm Kiếm</span>
+                    <input className={cx('input-search-friend')} ref={inputtext} />
                 </div>
-                    <div className={cx('search-friend')} ref ={inputsearch}>
-                        <FaSearch className={cx('icon-search')}/>
-                        <input className={cx('input-search-friend')} ref={inputtext} onChange ={()=> {
-                            handleClose();
-                        }}/>
-                        <div className={cx('btn-close')}  ref={resettext}>
-                            <FaWindowClose className={cx('icon-close')} onClick={Resetinput}/>
-                        </div>
-                
-                    </div>
-                    <div className={cx('search-close')} ref ={closesearch} onClick={() => setTab(0)}>
-                        <Button>Đóng</Button>
-                    </div>
+                <div className={cx('add-friend')} ref={buttonaddfr} onClick={()=>{modaladd(true)}}>
+                    <FaUserPlus className={cx('icon-add-friend')}/>
+                </div>
             </div>
             <div className={cx('amount-friend')}>   
                 <span>Bạn bè({userfrs.length})</span>
@@ -156,7 +84,6 @@ function showChat({modaladd}) {
                 <div
                     key={userfr.id}
                     className={cx('infor-chat')}
-                    
                 >
                     <div className={cx('img')}>
                         <img src={userfr.img}></img>

@@ -1,9 +1,8 @@
 import classNames from 'classnames/bind';
 import styles from './showChat.module.scss';
-import images from '~/asset/images';
 import FirestoreUse from '~/hooks/useFirestore';
 import { AuthContext } from '~/Context/AuthProvider';
-import react, { useState } from 'react';
+import react from 'react';
 import { AppContext } from '~/Context/AppProvider';
 const cx = classNames.bind(styles);
 const time = '5 giờ';

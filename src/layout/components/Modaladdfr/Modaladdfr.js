@@ -1,8 +1,7 @@
 import classNames from 'classnames/bind';
-import styles from './showChat.module.scss';
+import styles from './Modaladdfr.module.scss';
 import { AuthContext } from '~/Context/AuthProvider';
-import react, { useState } from 'react';
-import { AppContext } from '~/Context/AppProvider';
+import react from 'react';
 import {  FaWindowClose } from 'react-icons/fa';
 import { Button } from 'antd';
 import getSearchFriend from '~/hooks/getSearchFriend';
@@ -13,7 +12,7 @@ import { addListAddFriend, updateFriend ,updateListAddFriend,deleteFriend} from 
 let dem = 0;
 
 const cx = classNames.bind(styles);
-function showChat({modaladd}) {
+function Modaladdfr({modaladd}) {
     const {
         user: { photoURL, uid },
     } = react.useContext(AuthContext);
@@ -21,10 +20,8 @@ function showChat({modaladd}) {
     const [hienthi,sethienthi] = react.useState(false);
     // const [addfr,setaddfr] = react.useState('');
     const listfriend = getFriends(uid);
-    console.log(listfriend);
     const datalistaddfriend = listAddFriendAll();
     const listaddfriend = listAddFriend(uid);
-    console.log(listaddfriend);
     const [tab,setTab] = react.useState(0);
     const btnSdt = react.useRef();
     const btnEmail = react.useRef();
@@ -58,7 +55,6 @@ function showChat({modaladd}) {
             }
         }
     }
-    // console.log(dem++,data)
     const setdatainfo = () => {
         setTabFriend(0);
         for(let item of datalistaddfriend)
@@ -80,7 +76,6 @@ function showChat({modaladd}) {
             if(data.uid === i.uid)
             {
                 setTabFriend(1)
-                console.log('xet 1')
             }else
             {
                 for(let j of listaddfriend)
@@ -89,8 +84,6 @@ function showChat({modaladd}) {
                     if(data.uid === j.uid)
                     {
                         setTabFriend(2)        
-                    console.log('xet 2')
-
                     }
                 } 
             }
@@ -98,13 +91,11 @@ function showChat({modaladd}) {
     }
     react.useEffect(() => {
         setdatainfo();
-        console.log(dem++);
     },[data])
     const handleWithInfo = () => {
         // addListAddFriend(data.uid,uid);
         if(tabFriend === 0)
         {
-            console.log(data.uid,uid)
             addListAddFriend(data.uid,uid);
             setTabFriend(3);
         }
@@ -137,7 +128,7 @@ function showChat({modaladd}) {
         }
         if(tab === 1)
         {
-            btnSdt.current.style.backgroundColor = 'red';
+            btnSdt.current.style.backgroundColor = 'rgba(0,0,0,0.1)';
             btnEmail.current.style.backgroundColor = 'white';
             inputSdt.current.style.display = 'flex';
             inputEmail.current.style.display = 'none';
@@ -146,7 +137,7 @@ function showChat({modaladd}) {
         if(tab === 2)
         {
             btnSdt.current.style.backgroundColor = 'white';
-            btnEmail.current.style.backgroundColor = 'red';
+            btnEmail.current.style.backgroundColor = 'rgba(0,0,0,0.1)';
             inputSdt.current.style.display = 'none';
             inputEmail.current.style.display = 'flex';
             inputSdt2.current.value = '';
@@ -154,8 +145,6 @@ function showChat({modaladd}) {
     }
     react.useEffect(() => {
         tonggle();
-        console.log(dem++);
-
     },[tab])
     return (
         <div className={cx('modal-container')}>
@@ -181,7 +170,7 @@ function showChat({modaladd}) {
                             }}>Email</Button>
                        </div>
                        <div className={cx('input-number')} ref={inputSdt}>
-                            <input ref={inputSdt2}/>
+                            <input placeholder='Nhập số điện thoại' ref={inputSdt2}/>
                             <FaWindowClose onClick={() => {
                             setTab(0);
                             sethienthi(false);
@@ -189,7 +178,7 @@ function showChat({modaladd}) {
                             }/>
                        </div>
                        <div className={cx('input-email')} ref={inputEmail}>
-                            <input ref={inputEmail2}/>
+                            <input placeholder='Nhập email' ref={inputEmail2}/>
                             <FaWindowClose onClick={() => {
                                 setTab(0);
                             }}/>
@@ -219,4 +208,4 @@ function showChat({modaladd}) {
         </div>
     );
 }
-export default showChat;
+export default Modaladdfr;

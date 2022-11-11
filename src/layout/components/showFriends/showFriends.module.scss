@@ -12,9 +12,10 @@
     border-radius: 10px;
 }
 .option {
+    height: 50px;
     display: flex;
     border-bottom: 1px solid #ccc;
-    background-color: aqua;
+    //background-color: aqua;
 }
 .infor-chat {
     width: 100%;
@@ -51,47 +52,48 @@
     color: #001a33;
 }
 
-
-.add-friend{
+.add-friend {
     display: flex;
     align-items: center;
-    width: 50%;
+    width: 15%;
     justify-content: center;
-    padding: 12.3px;
 }
-.add-friend:hover, .search-friend-icon:hover{
-    background-color: red;
+.add-friend:hover,
+.search-friend-icon:hover {
     cursor: pointer;
 }
-.add-friend span{
+.icon-add-friend {
+    font-size: 20px;
+}
+.add-friend span {
     font-weight: 800;
 }
-.search-friend-icon{
+.search-friend-icon {
     display: flex;
     align-items: center;
     width: 50%;
     justify-content: center;
     padding: 12.3px;
 }
-.search-close{
+.search-close {
     display: flex;
     align-items: center;
     width: 19%;
     display: none;
 }
-.btn-close{
+.btn-close {
     display: none;
     align-items: center;
 }
-.search-close button{
+.search-close button {
     font-size: 14px;
     height: 68%;
     width: 100%;
     background-color: transparent;
 }
-.search-friend{
+.search-friend {
     width: 90%;
-    background-color: rgba(0 255 255 );
+    //background-color: rgba(0 255 255);
     padding: 5px;
     border-radius: 29px;
     margin: 8px 7px;
@@ -99,11 +101,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    display: none;
 }
-.input-search-friend{
+.input-search-friend {
     outline: none;
     border: none;
     background-color: transparent;
     flex: 1;
+    margin-left: 5px;
 }
