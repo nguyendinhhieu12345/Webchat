@@ -123,21 +123,31 @@ export const addListAddFriend = (uid,user) =>
                     
                 
 }
+export const addGroup = (user,idgroup) =>
+{
+    let collectionUser = db.collection('rooms');
+                        getDocs(collectionUser)
+                        .then(res => {
+                            
+                                    const movss = res.docs.find(doc => doc.id === idgroup);
+                                    const dataa = movss.data().members;
+                                    const dataaa = [...dataa,user];
+                                    console.log(dataaa,idgroup);
+                                    db.collection('rooms').doc(movss.id).update({
+                                        createdAt: movss.data().createdAt,
+                                        description: movss.data().description,
+                                        members: dataaa,
+                                        name: movss.data().name,
+                                    }).then(()=> {
+                                        alert('Thêm thành viên thành công')
+                                    }).catch(err => err);
+                        }).catch(err => err)
 
-// export const readFriends =  (collection, data) => {
-    
+                    
+}
 
-//     // var a;
-//     // db.collection('friend')
-//     // .get()
-//     // .then(snap => a=snap)
-//     // .catch(err => err)
-//     // return a;
-// };
-// tao keywords cho displayName, su dung cho search
 export const generateKeywords = (displayName) => {
-    // liet ke tat cac hoan vi. vd: name = ["David", "Van", "Teo"]
-    // => ["David", "Van", "Teo"], ["David", "Teo", "Van"], ["Teo", "David", "Van"],...
+   
     const name = displayName.split(' ').filter((word) => word);
 
     const length = name.length;
@@ -145,12 +155,6 @@ export const generateKeywords = (displayName) => {
     let result = [];
     let stringArray = [];
 
-    /**
-     * khoi tao mang flag false
-     * dung de danh dau xem gia tri
-     * tai vi tri nay da duoc su dung
-     * hay chua
-     **/
     for (let i = 0; i < length; i++) {
         flagArray[i] = false;
     }

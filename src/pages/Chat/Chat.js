@@ -16,6 +16,7 @@ import Friends from '~/layout/components/Friends';
 import Group from '~/layout/components/Group';
 import ShowFriends from '~/layout/components/showFriends';
 import Modaladdfr from '~/layout/components/Modaladdfr';
+
 const cx = classNames.bind(styles);
 function Home() {
     const [tab, setTab] = useState(0);

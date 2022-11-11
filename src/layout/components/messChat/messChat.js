@@ -14,6 +14,7 @@ import { AiFillBank } from 'react-icons/ai';
 import { Button, Avatar, Form, Alert } from 'antd';
 import styled from 'styled-components';
 import { BugTwoTone, UserAddOutlined } from '@ant-design/icons';
+import ModalInviteMember from '~/layout/components/Modaladdfr/ModalInviteMember';
 const cx = classNames.bind(styles);
 
 const ButtonGroupStyled = styled.div`
@@ -46,6 +47,8 @@ const HeaderStyled = styled.div`
     }
 `;
 function messChat(props, ref) {
+
+    
     //const [form] = Form.useForm();
     const {
         roomid,
@@ -60,6 +63,9 @@ function messChat(props, ref) {
         setOpenOption,
 
     } = react.useContext(AppContext);
+
+
+    
     const handleSetting = () => {
         document.getElementsByClassName(`${cx('wrapper')}`)[0].style.width = '80%';
     };
@@ -128,10 +134,6 @@ function messChat(props, ref) {
             }
         }
       }
-    //
-      const showInvite = () => {
-        document.getElementsByClassName('test-invite-user')[0].style.display = 'block';
-    };
 
     const handleCancelRename = () => {
         setIsOpenRename('none');
@@ -156,35 +158,7 @@ function messChat(props, ref) {
     const [testData, setTestData] = react.useState('');
 
 
-    const handleCancelOK1 = () => {
-
-        const bien = '12345'
-    
-        const uidtest = bien;
-
-        const datatest = [''];
-    
-        datatest.splice(0, 1, uidtest);
-
-        console.log({datatest})
-        const roomRef = db.collection('rooms').doc(selectedRoomId);
-
-        roomRef
-            .update({
-                members: [...selectedRoom.members, ...datatest.map((val) => val)],
-            })
-            .then(() => {
-                alert('Update thành công');
-            })
-            .catch((error) => {
-                alert('Lỗi rồi');
-            });
-    };
-
-    const handleClick = () => {
-        handleCancelOK1();
-    };
-
+   
     const handleOkDes = () => {
         updateDoc(doc(db, 'rooms', selectedRoomId), {
             description: inputDesGroup,
@@ -216,6 +190,9 @@ function messChat(props, ref) {
     const handleOffOption = () => {
         setOpenOption('none');
     };
+
+
+    console.log({selectedRoom})
     return (
         <div className={cx('wrapper')}>
             {roomid ? (
@@ -239,7 +216,7 @@ function messChat(props, ref) {
                                 type="text"
                                 className={cx('icon-option')}
                                 icon={<UserAddOutlined />}
-                                onClick={showInvite}
+                                // onClick={showInvite}
                             >
                                 Mời
                             </Button>
@@ -369,9 +346,7 @@ function messChat(props, ref) {
                             </div>
                         </Form>
 
-                        <div>
-                            <button onClick={handleClick}>Test Thêm Phòng</button>
-                        </div>
+                      
                         <div className={cx('input-send')}>
                             <input
                                 className={cx('input-chat')}
@@ -383,6 +358,8 @@ function messChat(props, ref) {
                             <FaPaperPlane className={cx('send')} onClick={handlesubmit} />
                         </div>
                     </section>
+                    <ModalInviteMember/>
+                    
                 </div>
             ) : (
                 <Alert

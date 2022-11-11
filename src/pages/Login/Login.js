@@ -29,9 +29,15 @@ function Login() {
                 uid: user.uid,
                 providerId: additionalUserInfo.providerId,
             });
+    
             addDocument('friend',{
-                uid: user.uid
-            })
+                id: user.uid,
+                friends: [],
+            });
+            addDocument('addfriend',{
+                id: user.uid,
+                listaddfriend: [],
+            });
         }
     };
     //
