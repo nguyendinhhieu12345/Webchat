@@ -99,7 +99,6 @@ function messChat(props, ref) {
             setChat('')
         }
     };
-    console.log(members + " test")
     //
     const handleinputchange = (e) => {
         setChat(e.target.value);
