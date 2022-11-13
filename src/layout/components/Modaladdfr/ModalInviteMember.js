@@ -9,7 +9,7 @@ import { AppContext } from '~/Context/AppProvider';
 import {addGroup} from '~/Context/service';
 
 const cx = classNames.bind(styles);
-function showChat({modaladd}) {
+function ModalInviteMember({modaladd}) {
     const {
         selectedRoomId,
         members,
@@ -20,10 +20,6 @@ function showChat({modaladd}) {
     const {
         user: {  uid },
     } = react.useContext(AuthContext);
-
-
-    console.log(members,'hello')
-
    
     const [hienthi,sethienthi] = react.useState(false);
 
@@ -41,6 +37,7 @@ function showChat({modaladd}) {
         let dk = '';
         if(tab === 1)
         {
+            setdata('')
             dk = inputSdt2.current.value;
             const kt = datas.find(data =>{return (data.phone === dk)});
             if(dk !== '' && kt !== undefined)
@@ -51,6 +48,7 @@ function showChat({modaladd}) {
         }
         if(tab === 2)
         {
+            setdata('')
             dk = inputEmail2.current.value;
             const kt = datas.find(data =>{return (data.email === dk)});
             if(dk !== '' && kt !== undefined)
@@ -101,7 +99,6 @@ function showChat({modaladd}) {
    
     const handleInviteMember = () => 
     {
-        console.log(data.uid,selectedRoomId);
         addGroup(data.uid,selectedRoomId)
    
     }
@@ -174,4 +171,4 @@ function showChat({modaladd}) {
         </div>
     );
 }
-export default showChat;
+export default ModalInviteMember;

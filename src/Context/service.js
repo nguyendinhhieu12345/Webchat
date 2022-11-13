@@ -11,10 +11,9 @@ export const addDocument = (collection, data) => {
     });
 };
 export const updateFriend = (uid,usernew) => {
-
     let collectionUser = db.collection('friend');
     let collectionUser2 = db.collection('addfriend');
-    getDocs(collectionUser)
+             getDocs(collectionUser)
             .then(res => {
                 const movs = res.docs.find(doc => doc.data().id == uid);
                 const data = movs.data().friends;
@@ -24,7 +23,7 @@ export const updateFriend = (uid,usernew) => {
                 }).then(()=> {
                     
                 }).catch(err => err);
-                const movs2 = res.docs.find(doc => doc.data().id == usernew);
+                const movs2 = res.docs.find(doc => doc.data().id === usernew);
                 const data2 = movs2.data().friends;
                 db.collection('friend').doc(movs2.id).update({
                     friends: [...data2,uid],
@@ -36,7 +35,7 @@ export const updateFriend = (uid,usernew) => {
             .catch(err => err)
             getDocs(collectionUser2)
             .then(res => {
-                        const movss = res.docs.find(doc => doc.data().id == uid);
+                        const movss = res.docs.find(doc => doc.data().id === uid);
                         const dataa = movss.data().listaddfriend;
                         const dataaa = dataa.filter(item => item !== usernew);
                         console.log(dataaa);
@@ -47,10 +46,8 @@ export const updateFriend = (uid,usernew) => {
                             console.log('update ok')
                         }).catch(err => err);
             }).catch(err => err)
-           
-    
-    
 }
+
 
 export const deleteFriend = (uid,usernew) => {
     let collectionUser = db.collection('friend');
@@ -131,19 +128,24 @@ export const addGroup = (user,idgroup) =>
                             
                                     const movss = res.docs.find(doc => doc.id === idgroup);
                                     const dataa = movss.data().members;
+                                    if(dataa.includes(user)) {
+                                        alert("User đã có trong nhóm")
+                                    }
+                                   
+                                    else
+                                    {
                                     const dataaa = [...dataa,user];
-                                    console.log(dataaa,idgroup);
                                     db.collection('rooms').doc(movss.id).update({
                                         createdAt: movss.data().createdAt,
                                         description: movss.data().description,
                                         members: dataaa,
                                         name: movss.data().name,
-                                    }).then(()=> {
-                                        alert('Thêm thành viên thành công')
-                                    }).catch(err => err);
+                                    }
+                                    )
+                                    alert('Thêm thành viên thành công')
+                                    }
                         }).catch(err => err)
 
-                    
 }
 
 export const generateKeywords = (displayName) => {

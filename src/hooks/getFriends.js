@@ -1,13 +1,10 @@
 import { useState, useEffect } from 'react';
 import { db } from '~/LoginWith/config';
-import { onSnapshot,getDocs} from 'firebase/firestore';
-import React from 'react';
+import { onSnapshot} from 'firebase/firestore';
 const useFirestore = (uid) => {
-    let user = uid;
     const [documents, setDocuments] = useState([]);
 
     useEffect(() => {
-        
         getFriend()
     }, []);
     useEffect(() => {
@@ -17,8 +14,8 @@ const useFirestore = (uid) => {
 
     function getFriend(){
         let collectionRef = db.collection('friend');
-        getDocs(collectionRef)
-        .then(res => {
+        onSnapshot(collectionRef,
+            res => {
             const movs = res.docs.map(doc => ({
                 friend: doc.data().friends,
                 data: doc.data(),
@@ -29,7 +26,7 @@ const useFirestore = (uid) => {
             for(let i of movs)
             {
                 // console.log(i)
-                if(i.uid == user)
+                if(i.uid == uid)
                 {
                     for(let j of i.friend)
                     {
@@ -41,8 +38,7 @@ const useFirestore = (uid) => {
             }
             
             let collectionUser = db.collection('users');
-            getDocs(collectionUser)
-            .then(res => {
+            onSnapshot(collectionUser, res => {
                 let userfr = [];
                 const userall = res.docs.map(doc => ({
                     uid: doc.data().uid,
@@ -66,10 +62,10 @@ const useFirestore = (uid) => {
                 }
                 setDocuments(userfr)
             })
-            .catch(err => err)
+            
            
         })
-        .catch(err => err)
+        
     }
   
     return documents;

@@ -10,7 +10,7 @@ import 'firebase/compat/analytics';
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-/*const firebaseConfig = {
+const firebaseConfig = {
     apiKey: "AIzaSyBWFVXmVyUxY2o7SH_7GYPBWpeMUc4ok18",
     authDomain: "webchat-4704f.firebaseapp.com",
     projectId: "webchat-4704f",
@@ -18,8 +18,8 @@ import 'firebase/compat/analytics';
     messagingSenderId: "765996912619",
     appId: "1:765996912619:web:d9d66aaca44e64f10513ae",
     measurementId: "G-TDHJDM2P1H"
-};*/
-const firebaseConfig = {
+};
+/*const firebaseConfig = {
     apiKey: "AIzaSyDUyQqmkF8TGqWNax05IUPYnwKKN1HcHHg",
     authDomain: "webchat2-f9883.firebaseapp.com",
     projectId: "webchat2-f9883",
@@ -27,7 +27,7 @@ const firebaseConfig = {
     messagingSenderId: "88812892277",
     appId: "1:88812892277:web:e0e758d4b888ff3ea3c83c",
     measurementId: "G-NRF93Z499G"
-  };
+  };*/
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);

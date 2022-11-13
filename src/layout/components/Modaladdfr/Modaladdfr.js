@@ -1,27 +1,21 @@
 import classNames from 'classnames/bind';
 import styles from './Modaladdfr.module.scss';
 import { AuthContext } from '~/Context/AuthProvider';
-import react from 'react';
-import {  FaWindowClose } from 'react-icons/fa';
+import react, { useState } from 'react';
+import { AppContext } from '~/Context/AppProvider';
+import { FaWindowClose } from 'react-icons/fa';
 import { Button } from 'antd';
-import getSearchFriend from '~/hooks/getSearchFriend';
-import getFriends from '~/hooks/getFriends';
-import listAddFriend from '~/hooks/listAddFriend';
-import listAddFriendAll from '~/hooks/listAddFriendAll';
 import { addListAddFriend, updateFriend ,updateListAddFriend,deleteFriend} from '~/Context/service';
 let dem = 0;
 
 const cx = classNames.bind(styles);
 function Modaladdfr({modaladd}) {
+    const {SearchUser,FriendsList,AddFriendListAll} = react.useContext(AppContext)
     const {
         user: { photoURL, uid },
     } = react.useContext(AuthContext);
     const [tabFriend,setTabFriend] = react.useState(0);
     const [hienthi,sethienthi] = react.useState(false);
-    // const [addfr,setaddfr] = react.useState('');
-    const listfriend = getFriends(uid);
-    const datalistaddfriend = listAddFriendAll();
-    const listaddfriend = listAddFriend(uid);
     const [tab,setTab] = react.useState(0);
     const btnSdt = react.useRef();
     const btnEmail = react.useRef();
@@ -30,15 +24,16 @@ function Modaladdfr({modaladd}) {
     const inputSdt2 = react.useRef();
     const inputEmail2 = react.useRef();
     // getSearchFriend();
-   const datas = getSearchFriend();
+   
    const [data,setdata] = react.useState({});
     
     const handleInfor = () => {
         let dk = '';
         if(tab === 1)
         {
+            setdata('');
             dk = inputSdt2.current.value;
-            const kt = datas.find(data =>{return (data.phone === dk)});
+            const kt = SearchUser.find(data =>{return (data.phone === dk)});
             if(dk !== '' && kt !== undefined)
             {
                 setdata(kt);
@@ -47,17 +42,19 @@ function Modaladdfr({modaladd}) {
         }
         if(tab === 2)
         {
+            setdata('');
             dk = inputEmail2.current.value;
-            const kt = datas.find(data =>{return (data.email === dk)});
+            const kt = SearchUser.find(data =>{return (data.email === dk)});
             if(dk !== '' && kt !== undefined)
             {
                 setdata(kt);
             }
         }
     }
+    // console.log(dem++,data)
     const setdatainfo = () => {
         setTabFriend(0);
-        for(let item of datalistaddfriend)
+        for(let item of AddFriendListAll)
         {
             if(item.uid === data.uid)
             {
@@ -70,7 +67,7 @@ function Modaladdfr({modaladd}) {
                 }
             }
         }
-        for(let i of listfriend)
+        for(let i of FriendsList)
         {
             
             if(data.uid === i.uid)
@@ -78,22 +75,25 @@ function Modaladdfr({modaladd}) {
                 setTabFriend(1)
             }else
             {
-                for(let j of listaddfriend)
+                for(let j of FriendsList)
                 {
                     
                     if(data.uid === j.uid)
                     {
                         setTabFriend(2)        
+
                     }
                 } 
             }
         }
     }
     react.useEffect(() => {
-        setdatainfo();
+        if(data !== '')
+        {
+            setdatainfo();
+        }
     },[data])
     const handleWithInfo = () => {
-        // addListAddFriend(data.uid,uid);
         if(tabFriend === 0)
         {
             addListAddFriend(data.uid,uid);
@@ -128,7 +128,7 @@ function Modaladdfr({modaladd}) {
         }
         if(tab === 1)
         {
-            btnSdt.current.style.backgroundColor = 'rgba(0,0,0,0.1)';
+            btnSdt.current.style.backgroundColor = 'red';
             btnEmail.current.style.backgroundColor = 'white';
             inputSdt.current.style.display = 'flex';
             inputEmail.current.style.display = 'none';
@@ -137,7 +137,7 @@ function Modaladdfr({modaladd}) {
         if(tab === 2)
         {
             btnSdt.current.style.backgroundColor = 'white';
-            btnEmail.current.style.backgroundColor = 'rgba(0,0,0,0.1)';
+            btnEmail.current.style.backgroundColor = 'red';
             inputSdt.current.style.display = 'none';
             inputEmail.current.style.display = 'flex';
             inputSdt2.current.value = '';
@@ -145,6 +145,8 @@ function Modaladdfr({modaladd}) {
     }
     react.useEffect(() => {
         tonggle();
+        console.log(dem++);
+
     },[tab])
     return (
         <div className={cx('modal-container')}>
@@ -170,7 +172,7 @@ function Modaladdfr({modaladd}) {
                             }}>Email</Button>
                        </div>
                        <div className={cx('input-number')} ref={inputSdt}>
-                            <input placeholder='Nhập số điện thoại' ref={inputSdt2}/>
+                            <input ref={inputSdt2}/>
                             <FaWindowClose onClick={() => {
                             setTab(0);
                             sethienthi(false);
@@ -178,7 +180,7 @@ function Modaladdfr({modaladd}) {
                             }/>
                        </div>
                        <div className={cx('input-email')} ref={inputEmail}>
-                            <input placeholder='Nhập email' ref={inputEmail2}/>
+                            <input ref={inputEmail2}/>
                             <FaWindowClose onClick={() => {
                                 setTab(0);
                             }}/>

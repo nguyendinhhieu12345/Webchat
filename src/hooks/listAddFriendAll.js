@@ -3,7 +3,6 @@ import { db } from '~/LoginWith/config';
 import { onSnapshot,getDocs} from 'firebase/firestore';
 import React from 'react';
 const useFirestore = () => {
-    // console.log(user)
     const [documents, setDocuments] = useState([]);
 
     useEffect(() => {
@@ -11,8 +10,6 @@ const useFirestore = () => {
         getFriend()
     }, []);
     useEffect(() => {
-        
-        console.log(documents)
     }, [documents]);
 
     function getFriend(){
@@ -25,11 +22,6 @@ const useFirestore = () => {
             }))
        
             setDocuments(movs);
-           
-            
-            
-               
-           
         })
         .catch(err => err)
     }

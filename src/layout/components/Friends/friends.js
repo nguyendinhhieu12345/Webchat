@@ -1,22 +1,21 @@
 import classNames from 'classnames/bind';
 import styles from './friends.module.scss';
-import images from '~/asset/images';
 import { FaUserPlus } from 'react-icons/fa';
 import Button from '../Button';
-import listAddFriend from '../../../hooks/listAddFriend';
 import { AuthContext } from '~/Context/AuthProvider';
-import react, { useState } from 'react';
+import react from 'react';
 import { updateFriend,updateListAddFriend } from '~/Context/service';
+import { AppContext } from '~/Context/AppProvider';
+
 
 const cx = classNames.bind(styles);
-const time = '5 giờ';
 export default function showFriends() {
   
+    const {AddFriendList} = react.useContext(AppContext);
     
     const {
         user: { photoURL, uid },
     } = react.useContext(AuthContext);
-    const useraddfrs = listAddFriend(uid);
     const deleteaddfriend = (useraddfr) => {
         updateListAddFriend(uid, useraddfr.uid);
     }
@@ -32,18 +31,18 @@ export default function showFriends() {
             </header>
             <div className={cx('listaddfriend')}>
                 <div className={cx('listadd-header')}>
-                    <p>Lời mời kết bạn {useraddfrs.length == 0 ? '' : "(" + useraddfrs.length + ")"}</p>
+                    <p>Lời mời kết bạn {AddFriendList.length == 0 ? '' : "(" + AddFriendList.length + ")"}</p>
                 </div>
 
-                {useraddfrs.map(useraddfr=> (
+                {AddFriendList.map(useraddfr=> (
 
                 <div className={cx('listadd-infor')}>
                     <div className={cx('infor')}>
                         <div className={cx('img')}>
-                            <img src={useraddfr.img}></img>
+                            <img src={useraddfr.photoURL}></img>
                         </div>
                         <div className={cx('inf')}>
-                            <h2>{useraddfr.name}</h2>
+                            <h2>{useraddfr.displayName}</h2>
                             <p>Từ số điện thoại</p>
                         </div>
                     </div>
@@ -53,10 +52,7 @@ export default function showFriends() {
                     </div>
                 </div>
                 ))}
-                
             </div>
         </div>
     );
 }
-
-// export default showFriends;

@@ -1,7 +1,11 @@
-import React, { useMemo, useContext } from 'react';
+import React from 'react';
 import useFirestore from '~/hooks/useFirestore';
 import { AuthContext } from './AuthProvider';
 import { useState } from 'react';
+import getFriends from '~/hooks/getFriends';
+import listAddFriendAll from '~/hooks/listAddFriendAll';
+import AddFriend from '~/hooks/AddFriend';
+import getSearchFriend from '~/hooks/getSearchFriend';
 export const AppContext = React.createContext();
 
 export default function AppProvider({ children }) {
@@ -12,10 +16,8 @@ export default function AppProvider({ children }) {
     const [isOpenRenameDes, setIsOpenRenameDes] = useState('none');
     const [isOpenOption, setOpenOption] = useState('none');
     const [isOpenFormInvite, setIsOpenFormInvite] = useState('none')
-
-
+    const [showFriendchat,setShowFriendchat]= useState(false);
     const [isRenameInput, setIsRenameInput] = useState('');
-
     const [isRenameDesInput,setIsRenameDesInput] = useState('');
     const {
         user: { photoURL, uid },
@@ -45,7 +47,19 @@ export default function AppProvider({ children }) {
             compareValue: selectedRoom.members,
         };
     }, [selectedRoom.members]);
+    const FriendsList = React.useMemo(() => {
+        return getFriends(uid);
+    })
+    const AddFriendList = React.useMemo(()=>{
+        return AddFriend(uid ? uid : JSON.parse(localStorage.getItem("user"))[2]);
+    })
 
+    const AddFriendListAll = React.useMemo(()=>{
+        return listAddFriendAll();
+    })
+    const SearchUser = React.useMemo(()=>{
+        return getSearchFriend();
+    })
     const members = useFirestore('users', usersCondition);
     return (
         <AppContext.Provider
@@ -72,6 +86,12 @@ export default function AppProvider({ children }) {
                 setIsRenameDesInput,
                 isOpenFormInvite, 
                 setIsOpenFormInvite,
+                showFriendchat,
+                setShowFriendchat,
+                FriendsList,
+                AddFriendList,
+                AddFriendListAll,
+                SearchUser
             }}
         >
             {children}
