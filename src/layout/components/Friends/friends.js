@@ -17,7 +17,7 @@ export default function showFriends() {
         user: { photoURL, uid },
     } = react.useContext(AuthContext);
     const deleteaddfriend = (useraddfr) => {
-        updateListAddFriend(uid, useraddfr.uid);
+        updateListAddFriend(uid , useraddfr.uid);
     }
 
     const acpfriend = (useraddfr) => {

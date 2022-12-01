@@ -4,13 +4,8 @@ import { onSnapshot} from 'firebase/firestore';
 const AddFriend = (uid) => {
     const [documents, setDocuments] = useState([]);
     useEffect(() => {
-        
         getAddListFriend();
     }, []);
-     useEffect(() => {
-        
-       
-    }, [documents]);
     const getAddListFriend = () => {
         let collectionAddFriend = db.collection('addfriend');
         let collectionUser = db.collection('users');
@@ -37,7 +32,6 @@ const AddFriend = (uid) => {
             // console.log(listuseraddfr);
             setDocuments(listuseraddfr);
         })
-        
     }
     // console.log(documents);
     return documents;

@@ -50,7 +50,7 @@ function Login() {
         const storageUser=JSON.parse(localStorage.getItem('user'))
         return storageUser
     });
-    const handleBtnLogin = async () => {
+    const handleBtnLogin = () => {
         if(phoneInput === undefined || passwordInput === undefined)
         {
             alert("Số điện thoại hoặc mật khẩu không chính xác!!!")
@@ -59,11 +59,8 @@ function Login() {
             let loginUser = db.collection('users');
             loginUser.where('phone', '==', phoneInput);
             loginUser = loginUser.where('password', '==', passwordInput);
-            await getDocs(loginUser)
+            getDocs(loginUser)
                 .then((snapshot) => {
-                        setUser(
-                            snapshot.docs[0].data()
-                        );
                         setUserlocal(()=>{
                             const {displayName,photoURL,uid, phone}=snapshot.docs[0].data()
                             const userLogin=[displayName,photoURL,uid, phone]
@@ -71,6 +68,9 @@ function Login() {
                             localStorage.setItem("user", jsonUser);
                             return snapshot.docs[0].data()
                         })
+                        setUser(snapshot.docs[0]?.data())
+                        console.log(snapshot.docs[0]?.data())
+                        console.log(user)
                 })
                 .catch((error) => {
                     alert("Số điện thoại hoặc mật khẩu không chính xác!!!")
@@ -114,9 +114,6 @@ function Login() {
                             <input type="checkbox" name="rem-login" />
                             <span> Nhớ mật khẩu</span>
                         </div>
-                        <a href="http://localhost:3000/resetpass" className={cx('forgetpass')}>
-                            Quên mật khẩu?
-                        </a>
                     </div>
                     <Button className={cx('btn-login')} onClick={handleBtnLogin}>
                         Đăng nhập

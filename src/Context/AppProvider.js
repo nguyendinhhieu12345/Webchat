@@ -20,7 +20,7 @@ export default function AppProvider({ children }) {
     const [isRenameInput, setIsRenameInput] = useState('');
     const [isRenameDesInput,setIsRenameDesInput] = useState('');
     const {
-        user: { photoURL, uid },
+        user: { uid },
     } = React.useContext(AuthContext);
     const roomsCondition = React.useMemo(() => {
         return {
@@ -51,7 +51,7 @@ export default function AppProvider({ children }) {
         return getFriends(uid);
     })
     const AddFriendList = React.useMemo(()=>{
-        return AddFriend(uid ? uid : JSON.parse(localStorage.getItem("user"))[2]);
+        return AddFriend(uid);
     })
 
     const AddFriendListAll = React.useMemo(()=>{

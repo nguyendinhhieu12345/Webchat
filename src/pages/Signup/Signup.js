@@ -31,18 +31,31 @@ function Signup() {
     };
     //
     const [succ, setSucc] = useState(false);
+
     const handlesubmit = () => {
-        if (
-            document.getElementsByClassName(`${cx('pass')}`)[0].value ===
-            document.getElementsByClassName(`${cx('repass')}`)[0].value
-        ) {
+        if((document.getElementsByClassName(`${cx('name')}`)[0].value==='' || document.getElementsByClassName(`${cx('phone')}`)[0].value==='' || document.getElementsByClassName(`${cx('pass')}`)[0].value==='' || document.getElementsByClassName(`${cx('repass')}`)[0].value===''))
+        {
+            alert("Hãy điền đầy đủ các trường")
+        }
+        else 
+        { 
+            if (document.getElementsByClassName(`${cx('pass')}`)[0].value === document.getElementsByClassName(`${cx('repass')}`)[0].value ) {
+            const uid=createRandom();
             addDocument('users', {
                 displayName: document.getElementsByClassName(`${cx('name')}`)[0].value,
                 phone: document.getElementsByClassName(`${cx('phone')}`)[0].value,
                 photoURL: preview,
-                uid: createRandom(),
+                uid: uid,
                 providerId: 'phone',
                 password: document.getElementsByClassName(`${cx('pass')}`)[0].value,
+            });
+            addDocument('friend',{
+                id: uid,
+                friends: [],
+            });
+            addDocument('addfriend',{
+                id: uid,
+                listaddfriend: [],
             });
             setSucc(true);
             alert('Đăng ký thành công');
@@ -50,6 +63,7 @@ function Signup() {
             setSucc(false);
             alert('Mật khẩu không trùng khớp');
         }
+    }
     };
     //
     const handleLogin = async (provider) => {
@@ -90,8 +104,8 @@ function Signup() {
                     chúng tôi.
                 </p>
             </form>
-            <Button className={cx('btn-signup')} onClick={handlesubmit} to={succ ? ConfigRouter.Login : ''}>
-                Đăng ký
+            <Button className={cx('btn-signup')} onClick={handlesubmit} to={succ === true ? ConfigRouter.Login : ''}>
+                Đăng ký 
             </Button>
             <div className={cx('social-login-label')}>
                 <div className={cx('label-or')}>

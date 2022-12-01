@@ -15,26 +15,32 @@ export default function AuthProvider({ children }) {
             if (user) {
                 const { displayName, uid, photoURL, email, phone } = user;
                 setUser({ displayName, uid, photoURL, email, phone });
-                /*const userLogin=[displayName,photoURL,uid]
-                const jsonUser=JSON.stringify(userLogin)
-                localStorage.setItem("user", jsonUser);*/
                 setIsLoading(false);
                 history(ConfigRouter.Chat);
                 return;
             }
             else{
-                setUser({});
+                if(JSON.parse(localStorage.getItem("user")))
+                {
+                    setUser({
+                    displayName: JSON.parse(localStorage.getItem("user"))[0],
+                    photoURL: JSON.parse(localStorage.getItem("user"))[1],
+                    uid: JSON.parse(localStorage.getItem("user"))[2],
+                    sdt: JSON.parse(localStorage.getItem("user"))[3]
+                    })
+                }
+                else{
+                    setUser({})
+                }
                 setIsLoading(false);
-                // history();
             }
         });
-
         // clean function
         return () => {
             unsubscibed();
         };
-
     },[history]);
+    console.log(JSON.stringify(user) === '{}' ? "rong" : "khong rong")
     return (
         <AuthContext.Provider value={{ user, setUser }}>
             {isLoading ? <Spin style={{ position: 'fixed', inset: 0 }} /> : children}

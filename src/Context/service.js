@@ -11,6 +11,7 @@ export const addDocument = (collection, data) => {
     });
 };
 export const updateFriend = (uid,usernew) => {
+
     let collectionUser = db.collection('friend');
     let collectionUser2 = db.collection('addfriend');
              getDocs(collectionUser)
@@ -46,14 +47,16 @@ export const updateFriend = (uid,usernew) => {
                             console.log('update ok')
                         }).catch(err => err);
             }).catch(err => err)
+           
+    
+    
 }
-
 
 export const deleteFriend = (uid,usernew) => {
     let collectionUser = db.collection('friend');
     getDocs(collectionUser)
             .then(res => {
-                const movs = res.docs.find(doc => doc.data().id == uid);
+                const movs = res.docs.find(doc => doc.data().id === uid);
                 const data = movs.data().friends.filter(doc => doc !== usernew);
                 db.collection('friend').doc(movs.id).update({
                     friends: data,
@@ -61,10 +64,19 @@ export const deleteFriend = (uid,usernew) => {
                 }).then(()=> {
                     
                 }).catch(err => err);
+                const movs2 = res.docs.find(doc => doc.data().id === usernew);
+                const data2 = movs2.data().friends.filter(doc => doc !== uid);
+                db.collection('friend').doc(movs2.id).update({
+                    friends: data2,
+                    id: usernew,
+                }).then(()=> {
+                    
+                }).catch(err => err);
             })
             .catch(err => err)
     
 }
+
 export const updateListAddFriend = (uid,user) =>
 {
                     let collectionUser = db.collection('addfriend');

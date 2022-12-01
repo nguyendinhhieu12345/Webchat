@@ -44,7 +44,7 @@ const LinkStyled = styled(Typography.Link)`
 `;
 
 export default function Group() {
-    const { rooms, setSelectedRoomId, selectedRoomId } = React.useContext(AppContext);
+    const { rooms, setSelectedRoomId, selectedRoomId,members } = React.useContext(AppContext);
 
     const [form] = Form.useForm();
 
@@ -86,11 +86,21 @@ export default function Group() {
     };
 
     const handlePerformOK = () => {
-        console.log(selectedRoomId);
         document.getElementsByClassName('perform-del')[0].style.display = 'block';
         document.getElementsByClassName('form-group')[0].style.display = 'block';
+        const array = []
+        {members.map((member, index) => (
+            array.push(member.uid)
+        ))}
+        if (array[0] == uid)
+        {
         deleteDoc(doc(db, 'rooms', selectedRoomId));
         alert('Xóa thành công');
+        }
+        else
+        {
+            alert('Không thể xóa phòng');
+        }
         document.getElementsByClassName('perform-del')[0].style.display = 'none';
     };
 
