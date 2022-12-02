@@ -1,5 +1,6 @@
 import classNames from 'classnames/bind';
 import styles from './friends.module.scss';
+
 import { FaUserPlus } from 'react-icons/fa';
 import Button from '../Button';
 import { AuthContext } from '~/Context/AuthProvider';
@@ -10,19 +11,23 @@ import { AppContext } from '~/Context/AppProvider';
 
 const cx = classNames.bind(styles);
 export default function showFriends() {
-  
-    const {AddFriendList} = react.useContext(AppContext);
     
+    const {AddFriendList} = react.useContext(AppContext);
+    const [rs,setrs] = react.useState(AddFriendList);
     const {
-        user: { photoURL, uid },
+        user: { uid },
     } = react.useContext(AuthContext);
     const deleteaddfriend = (useraddfr) => {
-        updateListAddFriend(uid , useraddfr.uid);
-    }
-
+        updateListAddFriend(uid, useraddfr.uid);
+    }   
+    react.useEffect(()=>{
+        setrs(AddFriendList);
+        AddFriendList.forEach(dat => console.log(dat));
+    },[AddFriendList])
     const acpfriend = (useraddfr) => {
         updateFriend(uid,useraddfr.uid)
     }
+
     return (
         <div className={cx('wrapper')}>
             <header className={cx('listfriend')}>
@@ -31,15 +36,15 @@ export default function showFriends() {
             </header>
             <div className={cx('listaddfriend')}>
                 <div className={cx('listadd-header')}>
-                    <p>Lời mời kết bạn {AddFriendList.length == 0 ? '' : "(" + AddFriendList.length + ")"}</p>
+                    <p>Lời mời kết bạn {rs.length === 0 ? '' : "(" + rs.length + ")"}</p>
                 </div>
 
-                {AddFriendList.map(useraddfr=> (
+                {rs.map(useraddfr => (
 
                 <div className={cx('listadd-infor')}>
                     <div className={cx('infor')}>
                         <div className={cx('img')}>
-                            <img src={useraddfr.photoURL}></img>
+                            <img src={useraddfr.photoURL} alt=""></img>
                         </div>
                         <div className={cx('inf')}>
                             <h2>{useraddfr.displayName}</h2>
@@ -52,7 +57,10 @@ export default function showFriends() {
                     </div>
                 </div>
                 ))}
+                
             </div>
         </div>
     );
 }
+
+// export default showFriends;

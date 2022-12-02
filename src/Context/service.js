@@ -1,7 +1,5 @@
 import firebase, { db } from '../LoginWith/config';
 import {getDocs} from 'firebase/firestore';
-import React,{useState} from 'react';
-import { set } from 'lodash';
 export const addDocument = (collection, data) => {
     const query = db.collection(collection);
 

@@ -3,8 +3,8 @@ import styles from './Login.module.scss';
 import { ConfigRouter } from '~/config';
 import Button from '~/layout/components/Button';
 import { FaUser, FaLock, FaFacebook, FaGoogle } from 'react-icons/fa';
-import react, { useMemo, useState, useEffect } from 'react';
-import { useNavigate,Navigate } from 'react-router-dom';
+import react, {  useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 //
 import { AuthContext } from '~/Context/AuthProvider';
 
@@ -45,7 +45,6 @@ function Login() {
     const history = useNavigate();
     const [phoneInput, setPhoneInput] = useState();
     const [passwordInput, setPasswordInput] = useState();
-    const [currentUser, setCurrentUser] = useState([]);
     const [userlocal, setUserlocal] = useState(()=>{
         const storageUser=JSON.parse(localStorage.getItem('user'))
         return storageUser
@@ -53,7 +52,7 @@ function Login() {
     const handleBtnLogin = () => {
         if(phoneInput === undefined || passwordInput === undefined)
         {
-            alert("Số điện thoại hoặc mật khẩu không chính xác!!!")
+            alert("Hãy nhập đầy đủ số điện thoại và mật khẩu!!!")
         }
         else{
             let loginUser = db.collection('users');
@@ -61,16 +60,18 @@ function Login() {
             loginUser = loginUser.where('password', '==', passwordInput);
             getDocs(loginUser)
                 .then((snapshot) => {
-                        setUserlocal(()=>{
+                        /*setUserlocal(()=>{
                             const {displayName,photoURL,uid, phone}=snapshot.docs[0].data()
                             const userLogin=[displayName,photoURL,uid, phone]
                             const jsonUser=JSON.stringify(userLogin)
                             localStorage.setItem("user", jsonUser);
                             return snapshot.docs[0].data()
-                        })
+                        })*/
+                        const {displayName,photoURL,uid, phone}=snapshot.docs[0].data()
+                        const userLogin=[displayName,photoURL,uid, phone]
+                        const jsonUser=JSON.stringify(userLogin)
+                        localStorage.setItem("user", jsonUser);
                         setUser(snapshot.docs[0]?.data())
-                        console.log(snapshot.docs[0]?.data())
-                        console.log(user)
                 })
                 .catch((error) => {
                     alert("Số điện thoại hoặc mật khẩu không chính xác!!!")
@@ -82,7 +83,7 @@ function Login() {
         if (localStorage.getItem('user')) {
             history(ConfigRouter.Chat);
         }
-    }, [user,history]);
+    }, [user,history,userlocal]);
     return (
         <div className={cx('wrapper')}>
             <div className={cx('img-login')}>

@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import styles from './Modaladdfr.module.scss';
 import { AuthContext } from '~/Context/AuthProvider';
-import react, { useState } from 'react';
+import react from 'react';
 import { AppContext } from '~/Context/AppProvider';
 import { FaWindowClose } from 'react-icons/fa';
 import { Button } from 'antd';
@@ -12,7 +12,7 @@ const cx = classNames.bind(styles);
 function Modaladdfr({modaladd}) {
     const {SearchUser,FriendsList,AddFriendListAll} = react.useContext(AppContext)
     const {
-        user: { photoURL, uid },
+        user: {  uid },
     } = react.useContext(AuthContext);
     const [tabFriend,setTabFriend] = react.useState(0);
     const [hienthi,sethienthi] = react.useState(false);
@@ -23,7 +23,6 @@ function Modaladdfr({modaladd}) {
     const inputEmail = react.useRef();
     const inputSdt2 = react.useRef();
     const inputEmail2 = react.useRef();
-    // getSearchFriend();
    
    const [data,setdata] = react.useState({});
     
@@ -51,7 +50,6 @@ function Modaladdfr({modaladd}) {
             }
         }
     }
-    // console.log(dem++,data)
     const setdatainfo = () => {
         setTabFriend(0);
         for(let item of AddFriendListAll)

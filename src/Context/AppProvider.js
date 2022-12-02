@@ -15,10 +15,10 @@ export default function AppProvider({ children }) {
     const [isOpenRename, setIsOpenRename] = useState('none');
     const [isOpenRenameDes, setIsOpenRenameDes] = useState('none');
     const [isOpenOption, setOpenOption] = useState('none');
-    const [isOpenFormInvite, setIsOpenFormInvite] = useState('none')
-    const [showFriendchat,setShowFriendchat]= useState(false);
+    const [isOpenFormInvite, setIsOpenFormInvite] = useState('none');
+    const [showFriendchat, setShowFriendchat] = useState(false);
     const [isRenameInput, setIsRenameInput] = useState('');
-    const [isRenameDesInput,setIsRenameDesInput] = useState('');
+    const [isRenameDesInput, setIsRenameDesInput] = useState('');
     const {
         user: { uid },
     } = React.useContext(AuthContext);
@@ -27,7 +27,6 @@ export default function AppProvider({ children }) {
             fieldName: 'members',
             operator: 'array-contains',
             compareValue: uid,
-        
         };
     }, [uid]);
 
@@ -48,18 +47,19 @@ export default function AppProvider({ children }) {
         };
     }, [selectedRoom.members]);
     const FriendsList = React.useMemo(() => {
+        console.log(getFriends(uid));
         return getFriends(uid);
-    })
-    const AddFriendList = React.useMemo(()=>{
+    });
+    const AddFriendList = React.useMemo(() => {
         return AddFriend(uid);
-    })
+    });
 
-    const AddFriendListAll = React.useMemo(()=>{
+    const AddFriendListAll = React.useMemo(() => {
         return listAddFriendAll();
-    })
-    const SearchUser = React.useMemo(()=>{
+    });
+    const SearchUser = React.useMemo(() => {
         return getSearchFriend();
-    })
+    });
     const members = useFirestore('users', usersCondition);
     return (
         <AppContext.Provider
@@ -80,18 +80,18 @@ export default function AppProvider({ children }) {
                 setIsOpenRenameDes,
                 isOpenOption,
                 setOpenOption,
-                isRenameInput, 
+                isRenameInput,
                 setIsRenameInput,
                 isRenameDesInput,
                 setIsRenameDesInput,
-                isOpenFormInvite, 
+                isOpenFormInvite,
                 setIsOpenFormInvite,
                 showFriendchat,
                 setShowFriendchat,
                 FriendsList,
                 AddFriendList,
                 AddFriendListAll,
-                SearchUser
+                SearchUser,
             }}
         >
             {children}

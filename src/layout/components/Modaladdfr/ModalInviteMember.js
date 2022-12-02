@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import styles from './InviteMember.module.scss';
 import { AuthContext } from '~/Context/AuthProvider';
-import react, { useState } from 'react';
+import react  from 'react';
 import {  FaWindowClose } from 'react-icons/fa';
 import { Button } from 'antd';
 import getSearchFriend from '~/hooks/getSearchFriend';
@@ -11,9 +11,7 @@ import {addGroup} from '~/Context/service';
 const cx = classNames.bind(styles);
 function ModalInviteMember({modaladd}) {
     const {
-        selectedRoomId,
-        members,
-        isOpenFormInvite, 
+        selectedRoomId, 
         setIsOpenFormInvite,
     
     } = react.useContext(AppContext);

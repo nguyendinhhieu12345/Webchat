@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { db } from '~/LoginWith/config';
-import { onSnapshot,getDocs} from 'firebase/firestore';
-import React from 'react';
+import { getDocs} from 'firebase/firestore';
 const useFirestore = () => {
     const [documents, setDocuments] = useState([]);
 

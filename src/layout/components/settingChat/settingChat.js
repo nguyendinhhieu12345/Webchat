@@ -1,6 +1,5 @@
 import classNames from 'classnames/bind';
 import styles from './settingChat.module.scss';
-import images from '~/asset/images';
 import react, { forwardRef } from 'react';
 import { AppContext } from '~/Context/AppProvider';
 import { AuthContext } from '~/Context/AuthProvider';
@@ -12,12 +11,7 @@ function settingChat(props, ref) {
     const {
         roomid,
         rooms,
-        isOpenRename,
-        setIsOpenRename,
         members,
-        isOpenRenameDes,
-        setIsOpenRenameDes,
-        isOpenOption,
         setOpenOption,
     } = react.useContext(AppContext);
 
@@ -32,7 +26,7 @@ function settingChat(props, ref) {
         });
     }, [rooms, roomid]);
     const {
-        user: { displayName, photoURL, uid },
+        user: { photoURL },
     } = react.useContext(AuthContext);
     return (
         <div className={cx('wrapper')} ref={ref}>

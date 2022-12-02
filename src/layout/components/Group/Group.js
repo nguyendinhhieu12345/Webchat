@@ -16,26 +16,6 @@ import { AiFillCloseSquare } from 'react-icons/ai';
 import { BsFillPlusSquareFill } from 'react-icons/bs';
 
 const cx = classNames.bind(styles);
-const time = '5 giờ';
-const { Panel } = Collapse;
-
-const PanelStyled = styled(Panel)`
-    &&& {
-        .ant-collapse-header,
-        p {
-            color: black;
-        }
-
-        .ant-collapse-content-box {
-            padding: 0 40px;
-        }
-
-        .add-room {
-            color: black;
-            padding: 0;
-        }
-    }
-`;
 
 const LinkStyled = styled(Typography.Link)`
     display: block;

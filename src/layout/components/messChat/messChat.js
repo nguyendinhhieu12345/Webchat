@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import styles from './messChat.module.scss';
 import images from '~/asset/images';
-import { FaSearch, FaVideo, FaBars, FaPaperPlane, FaCcJcb } from 'react-icons/fa';
+import { FaSearch, FaVideo, FaBars, FaPaperPlane } from 'react-icons/fa';
 import react, { forwardRef } from 'react';
 import { AppContext } from '~/Context/AppProvider';
 import { AuthContext } from '~/Context/AuthProvider';
@@ -12,44 +12,10 @@ import StatusAvatar from '../Modals/status-avatar';
 import { doc, updateDoc} from 'firebase/firestore';
 import { AiFillBank } from 'react-icons/ai';
 import { Button, Avatar, Form, Alert } from 'antd';
-import styled from 'styled-components';
 import { UserAddOutlined } from '@ant-design/icons';
 import ModalInviteMember from '~/layout/components/Modaladdfr/ModalInviteMember';
 const cx = classNames.bind(styles);
-
-const ButtonGroupStyled = styled.div`
-    display: flex;
-    align-items: center;
-`;
-
-const HeaderStyled = styled.div`
-    display: flex;
-    justify-content: space-between;
-    height: 20px;
-    align-items: center;
-    border-bottom: 1px solid rgb(230, 230, 230);
-
-    .header {
-        &__info {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        &__title {
-            margin: 0;
-            font-weight: bold;
-        }
-
-        &__description {
-            font-size: 11px;
-        }
-    }
-`;
 function messChat(props, ref) {
-
-    
-    //const [form] = Form.useForm();
     const {
         roomid,
         rooms,
@@ -64,8 +30,6 @@ function messChat(props, ref) {
         setIsOpenFormInvite,
         isOpenFormInvite
     } = react.useContext(AppContext);
-
-
     
     const handleSetting = () => {
         document.getElementsByClassName(`${cx('wrapper')}`)[0].style.width = '80%';
@@ -81,7 +45,6 @@ function messChat(props, ref) {
     const {
         user: { displayName, photoURL, uid },
     } = react.useContext(AuthContext);
-    //
     
     //
     const [chat, setChat] = react.useState('');
@@ -141,37 +104,42 @@ function messChat(props, ref) {
     };
 
     const handleCancelOK = () => {
-        updateDoc(doc(db, 'rooms', selectedRoomId), {
-            name: inputNameGroup,
-        })
+        if(inputNameGroup==='')
+        {
+            alert("Hãy nhập tên phòng!!!")
+        }
+        else{
+            updateDoc(doc(db, 'rooms', selectedRoomId), {
+                name: inputNameGroup,
+            })
             .then(() => {
                 alert('Đổi tên thành công');
             })
             .catch((error) => {
                 alert('Lỗi rồi');
             });
-
-        setIsOpenRename('none');
+            setIsOpenRename('none');
+        }
     };
-
     const [inputNameGroup, setInputNameGrop] = react.useState('');
     const [inputDesGroup, setInputDesGroup] = react.useState('');
-    const [testData, setTestData] = react.useState('');
-
-
-   
     const handleOkDes = () => {
-        updateDoc(doc(db, 'rooms', selectedRoomId), {
-            description: inputDesGroup,
-        })
-            .then(() => {
-                alert('Đổi tên thành công');
+        if(inputDesGroup==='')
+        {
+            alert("Hãy nhập mô tả!!!")
+        }
+        else{
+            updateDoc(doc(db, 'rooms', selectedRoomId), {
+                description: inputDesGroup,
             })
-            .catch((error) => {
-                alert('Lỗi rồi');
-            });
-
-        setIsOpenRename('none');
+                .then(() => {
+                    alert('Đổi tên thành công');
+                })
+                .catch((error) => {
+                    alert('Lỗi rồi');
+                });
+                setIsOpenRename('none');
+        }
     };
 
     const handleCancelDes = () => {

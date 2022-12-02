@@ -4,8 +4,6 @@ import styles from './Chat.module.scss';
 //icon
 import { FaCommentDots, FaUser, FaUsers } from 'react-icons/fa';
 //component
-import images from '~/asset/images';
-import { ConfigRouter } from '~/config';
 import HeaderChat from '~/layout/components/HeaderChat';
 import { useState, useRef, useEffect } from 'react';
 //

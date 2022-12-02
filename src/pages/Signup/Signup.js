@@ -1,13 +1,13 @@
 import classNames from 'classnames/bind';
 import styles from './Signup.module.scss';
-import { ConfigRouter } from '~/config';
 import Button from '~/layout/components/Button';
 import { FaFacebook, FaGoogle } from 'react-icons/fa';
 import { useState } from 'react';
 //
 import Avatar from 'react-avatar-edit';
 import { addDocument } from '~/Context/service';
-import firebase, { auth, db } from '../../LoginWith/config';
+import firebase, { auth } from '../../LoginWith/config';
+import { useNavigate } from "react-router-dom";
 //
 const cx = classNames.bind(styles);
 const fbProvider = new firebase.auth.FacebookAuthProvider();
@@ -15,6 +15,7 @@ const googleProvider = new firebase.auth.GoogleAuthProvider();
 function Signup() {
     const [src, setSrc] = useState(null);
     const [preview, setPreview] = useState(null);
+    const navigate = useNavigate();
     const onClose = () => {
         setPreview(null);
     };
@@ -29,8 +30,6 @@ function Signup() {
         }
         return randomstring;
     };
-    //
-    const [succ, setSucc] = useState(false);
 
     const handlesubmit = () => {
         if((document.getElementsByClassName(`${cx('name')}`)[0].value==='' || document.getElementsByClassName(`${cx('phone')}`)[0].value==='' || document.getElementsByClassName(`${cx('pass')}`)[0].value==='' || document.getElementsByClassName(`${cx('repass')}`)[0].value===''))
@@ -57,10 +56,9 @@ function Signup() {
                 id: uid,
                 listaddfriend: [],
             });
-            setSucc(true);
             alert('Đăng ký thành công');
+            navigate("/login");
         } else {
-            setSucc(false);
             alert('Mật khẩu không trùng khớp');
         }
     }
@@ -76,8 +74,17 @@ function Signup() {
                 uid: user.uid,
                 providerId: additionalUserInfo.providerId,
             });
+            addDocument('friend',{
+                id: user.uid,
+                friends: [],
+            });
+            addDocument('addfriend',{
+                id: user.uid,
+                listaddfriend: [],
+            });
         }
     };
+    
     return (
         <div className={cx('wrapper')}>
             <h1>Đăng ký</h1>
@@ -104,8 +111,9 @@ function Signup() {
                     chúng tôi.
                 </p>
             </form>
-            <Button className={cx('btn-signup')} onClick={handlesubmit} to={succ === true ? ConfigRouter.Login : ''}>
+            <Button className={cx('btn-signup')} onClick={handlesubmit}>
                 Đăng ký 
+
             </Button>
             <div className={cx('social-login-label')}>
                 <div className={cx('label-or')}>

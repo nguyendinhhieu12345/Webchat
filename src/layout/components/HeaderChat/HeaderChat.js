@@ -45,12 +45,6 @@ function Header() {
         <div className={cx('wrapper')}>
             <header className={cx('header')}>
                 <div className={cx('logo')}></div>
-                <div className={cx('search-box')}>
-                    <input className={cx('search-input')} placeholder="Tìm kiếm" name="timkiem" />
-                    <button className={cx('btn-search')}>
-                        <FaSearch className={cx('search-icon')} />
-                    </button>
-                </div>
                 <div className={cx('account')}>
                     <div className={cx('img')}>
                         <img src={JSON.parse(localStorage.getItem("user")) ? JSON.parse(localStorage.getItem("user"))[1] : photoURL}></img>

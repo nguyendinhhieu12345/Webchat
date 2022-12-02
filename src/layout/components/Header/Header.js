@@ -1,13 +1,8 @@
 import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
-import { Link } from 'react-router-dom';
 import Button from '../Button';
-//icon
-
-import { VscAccount } from 'react-icons/vsc';
 //component
 import { ConfigRouter } from '~/config';
-import images from '~/asset/images';
 
 const cx = classNames.bind(styles);
 
