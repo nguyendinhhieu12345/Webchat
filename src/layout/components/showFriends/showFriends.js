@@ -29,7 +29,6 @@ function showChat({ modaladd }) {
     react.useEffect(() => {
         setlistFriends(FriendsList);
     }, [FriendsList]);
-    console.log(listFriends);
 
     const [tab1, setTab1] = react.useState();
 

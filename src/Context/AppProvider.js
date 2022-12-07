@@ -47,7 +47,6 @@ export default function AppProvider({ children }) {
         };
     }, [selectedRoom.members]);
     const FriendsList = React.useMemo(() => {
-        console.log(getFriends(uid));
         return getFriends(uid);
     });
     const AddFriendList = React.useMemo(() => {

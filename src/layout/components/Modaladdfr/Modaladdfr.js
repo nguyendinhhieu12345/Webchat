@@ -10,7 +10,7 @@ let dem = 0;
 
 const cx = classNames.bind(styles);
 function Modaladdfr({modaladd}) {
-    const {SearchUser,FriendsList,AddFriendListAll} = react.useContext(AppContext)
+    const {SearchUser,FriendsList,AddFriendListAll,AddFriendList} = react.useContext(AppContext)
     const {
         user: {  uid },
     } = react.useContext(AuthContext);
@@ -52,38 +52,32 @@ function Modaladdfr({modaladd}) {
     }
     const setdatainfo = () => {
         setTabFriend(0);
-        for(let item of AddFriendListAll)
-        {
-            if(item.uid === data.uid)
+        for(let i of FriendsList){
+            if(data.uid === i.uid)
             {
-                for(let jtem of item.listaddfriend)
+                setTabFriend(1);
+            }
+        }
+        for(let i of AddFriendListAll){
+            if(data.uid === i.uid)
+            {
+                for(let j of i.listaddfriend)
                 {
-                    if(uid === jtem)
+                    if(j === uid)
                     {
-                        setTabFriend(3);
+                        setTabFriend(2);
                     }
                 }
             }
         }
-        for(let i of FriendsList)
+        for(let i of AddFriendList)
         {
-            
-            if(data.uid === i.uid)
+            if(i.uid === data.uid)
             {
-                setTabFriend(1)
-            }else
-            {
-                for(let j of FriendsList)
-                {
-                    
-                    if(data.uid === j.uid)
-                    {
-                        setTabFriend(2)        
-
-                    }
-                } 
+                setTabFriend(3);
             }
         }
+        
     }
     react.useEffect(() => {
         if(data !== '')
@@ -143,8 +137,6 @@ function Modaladdfr({modaladd}) {
     }
     react.useEffect(() => {
         tonggle();
-        console.log(dem++);
-
     },[tab])
     return (
         <div className={cx('modal-container')}>

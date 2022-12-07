@@ -9,7 +9,7 @@ import { addDocument } from '~/Context/service';
 import { db } from '~/LoginWith/config';
 import { onSnapshot } from 'firebase/firestore';
 import StatusAvatar from '../Modals/status-avatar';
-import { doc, updateDoc} from 'firebase/firestore';
+import { doc, updateDoc } from 'firebase/firestore';
 import { AiFillBank } from 'react-icons/ai';
 import { Button, Avatar, Form, Alert } from 'antd';
 import { UserAddOutlined } from '@ant-design/icons';
@@ -28,9 +28,9 @@ function messChat(props, ref) {
         isOpenOption,
         setOpenOption,
         setIsOpenFormInvite,
-        isOpenFormInvite
+        isOpenFormInvite,
     } = react.useContext(AppContext);
-    
+
     const handleSetting = () => {
         document.getElementsByClassName(`${cx('wrapper')}`)[0].style.width = '80%';
     };
@@ -45,12 +45,11 @@ function messChat(props, ref) {
     const {
         user: { displayName, photoURL, uid },
     } = react.useContext(AuthContext);
-    
+
     //
     const [chat, setChat] = react.useState('');
     const handlesubmit = () => {
-        if(chat!=='')
-        {
+        if (chat !== '') {
             addDocument('messages', {
                 text: chat,
                 uid,
@@ -59,7 +58,7 @@ function messChat(props, ref) {
                 idroom: roomid,
             });
             document.getElementsByClassName(`${cx('input-chat')}`)[0].value = '';
-            setChat('')
+            setChat('');
         }
     };
     //
@@ -81,11 +80,10 @@ function messChat(props, ref) {
             setDocuments(chat);
         });
     }, [roomid]);
-    documents.sort((a,b)=>a.createdAt-b.createdAt)
+    documents.sort((a, b) => a.createdAt - b.createdAt);
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
-            if(chat!=='')
-            {
+            if (chat !== '') {
                 addDocument('messages', {
                     text: chat,
                     uid,
@@ -94,41 +92,37 @@ function messChat(props, ref) {
                     idroom: roomid,
                 });
                 document.getElementsByClassName(`${cx('input-chat')}`)[0].value = '';
-                setChat('')
+                setChat('');
             }
         }
-      }
+    };
 
     const handleCancelRename = () => {
         setIsOpenRename('none');
     };
 
     const handleCancelOK = () => {
-        if(inputNameGroup==='')
-        {
-            alert("Hãy nhập tên phòng!!!")
-        }
-        else{
+        if (inputNameGroup === '') {
+            alert('Hãy nhập tên phòng!!!');
+        } else {
             updateDoc(doc(db, 'rooms', selectedRoomId), {
                 name: inputNameGroup,
             })
-            .then(() => {
-                alert('Đổi tên thành công');
-            })
-            .catch((error) => {
-                alert('Lỗi rồi');
-            });
+                .then(() => {
+                    alert('Đổi tên thành công');
+                })
+                .catch((error) => {
+                    alert('Lỗi rồi');
+                });
             setIsOpenRename('none');
         }
     };
     const [inputNameGroup, setInputNameGrop] = react.useState('');
     const [inputDesGroup, setInputDesGroup] = react.useState('');
     const handleOkDes = () => {
-        if(inputDesGroup==='')
-        {
-            alert("Hãy nhập mô tả!!!")
-        }
-        else{
+        if (inputDesGroup === '') {
+            alert('Hãy nhập mô tả!!!');
+        } else {
             updateDoc(doc(db, 'rooms', selectedRoomId), {
                 description: inputDesGroup,
             })
@@ -138,7 +132,7 @@ function messChat(props, ref) {
                 .catch((error) => {
                     alert('Lỗi rồi');
                 });
-                setIsOpenRename('none');
+            setIsOpenRename('none');
         }
     };
 
@@ -160,12 +154,43 @@ function messChat(props, ref) {
         setOpenOption('none');
     };
 
-    
-    const showInvite = () => 
-    {
-        setIsOpenFormInvite(true)
-    }
-   
+    const showInvite = () => {
+        setIsOpenFormInvite(true);
+    };
+    const [idFriend, setIdFriends] = react.useState([]);
+    react.useEffect(() => {
+        let tmp = [];
+        if (selectedRoom?.members.length === 2 && selectedRoom?.name === '') {
+            if (selectedRoom?.members[0] === uid) {
+                tmp.push(selectedRoom?.members[1]);
+            } else {
+                tmp.push(selectedRoom?.members[0]);
+            }
+        }
+        if (selectedRoom?.members.length === 1) {
+            tmp.push(selectedRoom?.members[0]);
+        }
+        if (selectedRoom?.members.length > 2) {
+            tmp.push(selectedRoom?.members[0]);
+        }
+        setIdFriends([...tmp]);
+    }, [selectedRoom]);
+    const [friend, setFriend] = react.useState([]);
+    react.useEffect(() => {
+        let tmp = [];
+        idFriend.forEach(async (id) => {
+            let listchat = db.collection('users');
+            listchat = listchat.where('uid', '==', id);
+            await onSnapshot(listchat, (snapshot) => {
+                const chat = snapshot.docs.map((doc) => ({
+                    ...doc.data(),
+                    id: doc.id,
+                }));
+                tmp.push(...chat);
+                setFriend([...tmp]);
+            });
+        });
+    }, [idFriend]);
     return (
         <div className={cx('wrapper')}>
             {roomid ? (
@@ -173,10 +198,10 @@ function messChat(props, ref) {
                     {' '}
                     <header className={cx('header-chat')}>
                         <div className={cx('img')}>
-                            <img src={photoURL}></img>
+                            <img src={selectedRoom?.name === '' ? friend?.[0]?.photoURL : photoURL}></img>
                         </div>
                         <div className={cx('infor-chat')}>
-                            <h2>{selectedRoom === undefined ? '' : selectedRoom.name}</h2>
+                            <h2>{selectedRoom?.name || friend?.[0]?.displayName}</h2>
                             <p>Hoạt động</p>
                         </div>
                         <div className={cx('option')}>
@@ -329,12 +354,8 @@ function messChat(props, ref) {
                             <FaPaperPlane className={cx('send')} onClick={handlesubmit} />
                         </div>
                     </section>
-                    <Form
-                        layout="vertical"
-                        className="open-des-form"
-                        style={{ display: isOpenFormInvite }}
-                        >
-                        <ModalInviteMember/>
+                    <Form layout="vertical" className="open-des-form" style={{ display: isOpenFormInvite }}>
+                        <ModalInviteMember />
                     </Form>
                 </div>
             ) : (

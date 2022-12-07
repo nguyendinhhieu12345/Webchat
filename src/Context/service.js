@@ -83,7 +83,6 @@ export const updateListAddFriend = (uid,user) =>
                                 const movss = res.docs.find(doc => doc.data().id == uid);
                                 const dataa = movss.data().listaddfriend;
                                 const dataaa = dataa.filter(item => item !== user);
-                                console.log(dataaa);
                                 db.collection('addfriend').doc(movss.id).update({
                                     id: uid,
                                     listaddfriend: dataaa,
@@ -95,18 +94,14 @@ export const updateListAddFriend = (uid,user) =>
 }
 export const addListAddFriend = (uid,user) =>
 {
-    console.log('vao')
     let kt = true;
     let collectionUser = db.collection('addfriend');
     getDocs(collectionUser)
     .then(res => {
                 const movss = res.docs.find(doc => doc.data().id == uid);
                 movss === undefined ? kt = false : kt = true;
-                console.log(kt);
                 if(kt === true)
                     {
-                        console.log('nhay');
-
                         getDocs(collectionUser)
                         .then(res => {
                                     const movss = res.docs.find(doc => doc.data().id == uid);

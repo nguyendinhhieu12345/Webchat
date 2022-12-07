@@ -20,7 +20,6 @@ const useFirestore = () => {
         setDocuments(userall);
     })
    }
-    console.log('xuat');
     return documents;
     
 };

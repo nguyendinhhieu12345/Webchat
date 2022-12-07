@@ -11,7 +11,7 @@ import { AuthContext } from '~/Context/AuthProvider';
 import { addDocument } from '~/Context/service';
 
 import firebase, { auth, db } from '~/LoginWith/config';
-import { onSnapshot, getDocs, child, get, where,collectionGroup, query } from 'firebase/firestore';
+import { getDocs } from 'firebase/firestore';
 //component
 import images from '~/asset/images';
 
@@ -60,13 +60,6 @@ function Login() {
             loginUser = loginUser.where('password', '==', passwordInput);
             getDocs(loginUser)
                 .then((snapshot) => {
-                        /*setUserlocal(()=>{
-                            const {displayName,photoURL,uid, phone}=snapshot.docs[0].data()
-                            const userLogin=[displayName,photoURL,uid, phone]
-                            const jsonUser=JSON.stringify(userLogin)
-                            localStorage.setItem("user", jsonUser);
-                            return snapshot.docs[0].data()
-                        })*/
                         const {displayName,photoURL,uid, phone}=snapshot.docs[0].data()
                         const userLogin=[displayName,photoURL,uid, phone]
                         const jsonUser=JSON.stringify(userLogin)
@@ -75,7 +68,6 @@ function Login() {
                 })
                 .catch((error) => {
                     alert("Số điện thoại hoặc mật khẩu không chính xác!!!")
-                    console.log(error)
                 });
         }
     };

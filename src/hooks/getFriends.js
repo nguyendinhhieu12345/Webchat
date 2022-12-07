@@ -19,7 +19,6 @@ const useFirestore = (uid) => {
             }));
             const them = [];
             for (let i of movs) {
-                // console.log(i)
                 if (i.uid == uid) {
                     for (let j of i.friend) {
                         them.push(j);

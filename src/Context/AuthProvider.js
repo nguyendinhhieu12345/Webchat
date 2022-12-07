@@ -40,7 +40,6 @@ export default function AuthProvider({ children }) {
             unsubscibed();
         };
     },[history]);
-    console.log(JSON.stringify(user) === '{}' ? "rong" : "khong rong")
     return (
         <AuthContext.Provider value={{ user, setUser }}>
             {isLoading ? <Spin style={{ position: 'fixed', inset: 0 }} /> : children}

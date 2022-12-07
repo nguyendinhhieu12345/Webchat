@@ -2,9 +2,8 @@ import classNames from 'classnames/bind';
 import styles from './Resetpass.module.scss';
 import { ConfigRouter } from '~/config';
 import Button from '~/layout/components/Button';
-import { FaLock, FaFacebook, FaGoogle } from 'react-icons/fa';
+import { FaLock  } from 'react-icons/fa';
 //component
-import images from '~/asset/images';
 const cx = classNames.bind(styles);
 function Home() {
     return (
