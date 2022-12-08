@@ -19,6 +19,7 @@ export default function AppProvider({ children }) {
     const [showFriendchat, setShowFriendchat] = useState(false);
     const [isRenameInput, setIsRenameInput] = useState('');
     const [isRenameDesInput, setIsRenameDesInput] = useState('');
+    const [idfriend,setIdFriend] = useState('')
     const {
         user: { uid },
     } = React.useContext(AuthContext);
@@ -91,6 +92,8 @@ export default function AppProvider({ children }) {
                 AddFriendList,
                 AddFriendListAll,
                 SearchUser,
+                idfriend,
+                setIdFriend
             }}
         >
             {children}

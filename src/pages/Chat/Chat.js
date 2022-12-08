@@ -5,7 +5,7 @@ import styles from './Chat.module.scss';
 import { FaCommentDots, FaUser, FaUsers } from 'react-icons/fa';
 //component
 import HeaderChat from '~/layout/components/HeaderChat';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect,useContext } from 'react';
 //
 import ShowChat from '~/layout/components/showChat';
 import MessChat from '~/layout/components/messChat';
@@ -14,9 +14,12 @@ import Friends from '~/layout/components/Friends';
 import Group from '~/layout/components/Group';
 import ShowFriends from '~/layout/components/showFriends';
 import Modaladdfr from '~/layout/components/Modaladdfr';
+import { AppContext } from '~/Context/AppProvider';
+import ChatFriend from '~/layout/components/ChatFriend';
 
 const cx = classNames.bind(styles);
 function Home() {
+    const { idfriend, setIdFriend} = useContext(AppContext);
     const [tab, setTab] = useState(0);
     const [modalAdd,setModalAdd] = useState(false);
     const chat = useRef();
@@ -56,13 +59,18 @@ function Home() {
                 <div className={cx('content-left')}>
                     <ul className={cx('option')}>
                         <li>
-                            <FaCommentDots className={cx('icon-option')} onClick={() => setTab(0)} />
+                            <FaCommentDots className={cx('icon-option')} onClick={() => {setTab(0)
+                                setIdFriend('')
+                            }} />
                         </li>
                         <li>
-                            <FaUser className={cx('icon-option')} onClick={() => setTab(1)} />
+                            <FaUser className={cx('icon-option')} onClick={() => {setTab(1)
+                            }} />
                         </li>
                         <li>
-                            <FaUsers className={cx('icon-option')} onClick={() => setTab(2)} />
+                            <FaUsers className={cx('icon-option')} onClick={() => { setTab(2)
+                                setIdFriend('')
+                            }} />
                         </li>
                     </ul>
                 </div>
@@ -74,7 +82,9 @@ function Home() {
                     </div>
                     <div className={tab === 1 ? cx('active') : cx('tab-content')} ref={friend}>
                         <ShowFriends className={cx('showfriends')} modaladd={setModalAdd}/> 
-                        <Friends />
+                        {
+                            idfriend === '' ? <Friends /> : <ChatFriend idfriend={idfriend} />
+                        }
                         {modalAdd && <Modaladdfr modaladd={setModalAdd}/>}
                     </div>
                     <div className={tab === 2 ? cx('active') : cx('tab-content')} ref={group}>

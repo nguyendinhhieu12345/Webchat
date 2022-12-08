@@ -1,0 +1,230 @@
+.wrapper {
+    //width: 60%;
+    border-right: 1px solid #ccc;
+    flex: 1;
+    height: 89vh;
+    position: relative;
+}
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
+}
+.header-chat {
+    width: 100%;
+    align-items: center;
+    display: flex;
+    height: 70px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+}
+.img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 5px;
+    transition: 0.5s;
+    margin: 10px;
+}
+.img img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+    object-position: center;
+}
+.infor-chat h2 {
+    font-weight: 600;
+    font-size: 20px;
+    letter-spacing: normal;
+    color: #001a33;
+}
+.option {
+    position: absolute;
+    right: 0;
+    margin-right: 10px;
+    font-size: 20px;
+    color: black;
+}
+.option .icon-option {
+    margin: 0 9px;
+    opacity: 0.7;
+    font-weight: 400;
+}
+.option .icon-option:hover {
+    opacity: 1;
+}
+.content-chat {
+    width: 100%;
+    background-color: #a6cdb1;
+    //height: 80vh;
+}
+.show-mess {
+    overflow-y: auto;
+    height: 75vh;
+    position: relative;
+}
+.item-mess {
+    padding: 5px;
+    color: #000;
+    margin: 5px 0;
+    display: flex;
+}
+.mychat {
+    justify-content: flex-end;
+    margin-right: 10px;
+}
+.mychat img {
+    display: none;
+}
+.input-send {
+    height: 5vh;
+    position: relative;
+}
+.input-chat {
+    position: absolute;
+    bottom: 0;
+    width: 95%;
+    padding: 7px;
+    font-size: 18px;
+    border: none;
+    display: flex;
+}
+.input-chat:focus {
+    outline: none;
+    border-top: 1px solid blue;
+}
+.send {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 5%;
+    cursor: pointer;
+    padding: 7px;
+    font-size: 35px;
+    color: #000;
+    background-color: white;
+}
+button {
+    cursor: pointer;
+    border: none;
+    font-size: 18px;
+}
+
+.test-invite-user2 {
+    margin-left: 50px;
+}
+
+.group-member {
+    margin: 12px;
+}
+
+.rename-group {
+    position: absolute;
+    top: 30%;
+    left: 35%;
+    z-index: 2;
+
+    padding: 12px 12px;
+    background-color: aliceblue;
+    box-shadow: 2px 2px #b2b1b1;
+    width: 320px;
+    border-radius: 2%;
+}
+
+.rename-group-name {
+    border-bottom: 1px solid #ccc;
+    font-size: 18px;
+    font-weight: 800;
+    font-style: italic;
+}
+
+.rename-group-img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 5px;
+    transition: 0.5s;
+    margin: 10px;
+    left: 50%;
+    margin-left: 41%;
+}
+
+.rename-group input {
+    width: 100%;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    height: 28px;
+}
+.rename-group-ok {
+    border: 1px solid #ccc;
+    padding: 6px 8px;
+    font-size: 17px;
+    border-radius: 8%;
+    background-color: rgb(40, 95, 167);
+    color: white;
+}
+
+.rename-group-cancel {
+    margin-left: 43%;
+    margin-right: 10%;
+    padding: 6px 8px;
+    font-size: 17px;
+    border: 1px solid #ccc;
+    background-color: rgb(195, 194, 195);
+    color: black;
+    border-radius: 8%;
+}
+
+.rename-group-content {
+    text-align: justify;
+}
+
+.open-option-form {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 30px 30px;
+    position: absolute;
+    top: 40%;
+    left: 40%;
+    background-color: rgb(222, 225, 227);
+    box-shadow: 2px 2px #b2b1b1;
+    border-radius: 10%;
+}
+
+.open-option-form p {
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 12px;
+    padding: 6px 0px;
+}
+
+.open-option-form button {
+    border: 1px solid #ccc;
+    padding: 5px 8px;
+}
+
+.update-option-name,
+.update-option-des {
+    margin-right: 13px;
+    background-color: rgb(40, 95, 167);
+    color: white;
+    font-style: italic;
+    border-radius: 10%;
+}
+
+.update-option-icon {
+    font-size: 35px;
+    margin-left: 49px;
+    cursor: pointer;
+}
+
+.update-option-name:hover,
+.update-option-des:hover {
+    background-color: rgb(236, 152, 154);
+}

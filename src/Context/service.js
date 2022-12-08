@@ -42,11 +42,38 @@ export const updateFriend = (uid,usernew) => {
                             id: uid,
                             listaddfriend: dataaa,
                         }).then(()=> {
-                            console.log('update ok')
+                            console.log('update ok 1')
                         }).catch(err => err);
             }).catch(err => err)
            
-    
+           
+            let collectionRoom = db.collection('rooms');
+            getDocs(collectionRoom)
+            .then(res =>{ 
+                
+                let dk = false;
+                const movs = res.docs.forEach(doc => {
+                    if(doc.data().members.length === 2)
+                    {
+                        if(doc.data().members[0] === uid && doc.data().members[1] === usernew){
+                            dk = true
+                        }
+                        if(doc.data().members[1] === uid && doc.data().members[0] === usernew){
+                            dk = true
+                        }
+                    }
+                })
+                
+                if(dk === false)
+                {
+                    addDocument('rooms', {
+                        members : [uid,usernew],
+                        name: '',
+                        description: ''
+                    });
+                }
+            }).catch(err => err)
+            
     
 }
 

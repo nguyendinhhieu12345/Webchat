@@ -25,7 +25,6 @@ const LinkStyled = styled(Typography.Link)`
 
 export default function Group() {
     const { rooms, setSelectedRoomId, selectedRoomId,members } = React.useContext(AppContext);
-
     const [form] = Form.useForm();
 
     const {
@@ -51,7 +50,6 @@ export default function Group() {
     };
 
     const DelRoom = () => {
-        console.log(selectedRoomId);
         if (selectedRoomId === '') {
             alert('Bạn chưa chọn phòng');
         } else {
@@ -85,7 +83,16 @@ export default function Group() {
     };
 
     const [roomName, setRoomName] = useState('');
-
+    const [listgroup, setListgroup] = React.useState([]);
+    React.useEffect(() => {
+        let tmp = [];
+        rooms.forEach((room) => {
+            if (room.members.length !== 2 && room.name !== '') {
+                    tmp.push(room);
+            }
+        });
+        setListgroup([...tmp]);
+    }, [rooms]);
     return (
         <div className={cx('all-group')}>
             <Collapse>
@@ -104,11 +111,11 @@ export default function Group() {
                 </Button>
 
                 <div className={cx('list-name')}>Danh sách các phòng</div>
-                <div className={cx('list-name')}>Tất cả: {rooms.length} nhóm</div>
+                <div className={cx('list-name')}>Tất cả: {listgroup.length} nhóm</div>
             </Collapse>
             <Form className={cx('form-group')} style={{ display: 'block' }}>
                 <div className={cx('row')}>
-                    {rooms.map((room) => (
+                    {listgroup.map((room) => (
                         <div className={cx('col-1-5')} key={room.id}>
                             <div className={cx('evr-group')}>
                                 <LinkStyled

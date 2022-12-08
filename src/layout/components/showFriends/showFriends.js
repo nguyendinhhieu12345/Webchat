@@ -3,7 +3,7 @@ import styles from './showFriends.module.scss';
 import getFriends from '~/hooks/getFriends';
 import { AuthContext } from '~/Context/AuthProvider';
 import { AppContext } from '~/Context/AppProvider';
-import react from 'react';
+import react, { useState } from 'react';
 import { FaSearch, FaUserPlus, FaWindowClose } from 'react-icons/fa';
 
 const cx = classNames.bind(styles);
@@ -24,7 +24,7 @@ function showChat({ modaladd }) {
         user: {  uid },
     } = react.useContext(AuthContext);
     //
-    const {  FriendsList } = react.useContext(AppContext);
+    const {  FriendsList, idfriend, setIdFriend } = react.useContext(AppContext);
     const userfrs = getFriends(uid);
     react.useEffect(() => {
         setlistFriends(FriendsList);
@@ -67,6 +67,9 @@ function showChat({ modaladd }) {
             setTab1(1);
         }
     }
+    const getIdFriend=(id)=>{
+        setIdFriend(id)
+    }
     return (
         <div className={cx('wrapper')}>
             <div className={cx('option')}>
@@ -97,11 +100,11 @@ function showChat({ modaladd }) {
                 <span>Bạn bè({userfrs.length})</span>
             </div>
             {(tab === 1 ? datasearch : listFriends).map((userfr) => (
-                <div key={userfr.id} className={cx('infor-chat')}>
+                <div key={userfr.id} className={cx('infor-chat')} onClick={() => {getIdFriend(userfr.uid)} }>
                     <div className={cx('img')}>
                         <img src={userfr.img}></img>
                     </div>
-                    <div className={cx('gui-chat')}>
+                    <div className={cx('gui-chat')} >
                         <h2>{userfr.name}</h2>
                     </div>
                 </div>
