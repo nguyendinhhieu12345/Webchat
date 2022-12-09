@@ -14,6 +14,7 @@ import { db } from '~/LoginWith/config';
 import { HiArchiveBoxXMark } from 'react-icons/hi2';
 import { AiFillCloseSquare } from 'react-icons/ai';
 import { BsFillPlusSquareFill } from 'react-icons/bs';
+import ModalInviteMember from '~/layout/components/Modaladdfr/ModalInviteMember';
 
 const cx = classNames.bind(styles);
 
@@ -24,7 +25,13 @@ const LinkStyled = styled(Typography.Link)`
 `;
 
 export default function Group() {
-    const { rooms, setSelectedRoomId, selectedRoomId,members } = React.useContext(AppContext);
+    const [giatri2,setGiatri2] = useState('')
+
+    const [listgroup, setListgroup] = React.useState([]);
+
+    const [demGiatri,setDemGiatri] = useState(0)
+    const { rooms, setSelectedRoomId, selectedRoomId,members, setIsOpenFormInvite, isOpenFormInvite } = React.useContext(AppContext);
+
     const [form] = Form.useForm();
 
     const {
@@ -37,12 +44,36 @@ export default function Group() {
         document.getElementsByClassName('form-group')[0].style.display = 'none';
     };
 
+    let dem = 0;
+
     const handleOk = () => {
         document.getElementsByClassName('test')[0].style.display = 'none';
         document.getElementsByClassName('form-group')[0].style.display = 'block';
         addDocument('rooms', { ...form.getFieldsValue(), members: [uid] });
         form.resetFields();
-    };
+            
+        };
+
+        rooms.map((room) => 
+        {
+            if (room.name === giatri2)
+            {
+                setSelectedRoomId(room.id)
+                dem = (room.members).length
+
+                while(room.name != "" && dem < 3)
+                {
+                    setIsOpenFormInvite(true)
+                    dem = dem + 1;
+                }
+        
+                if (demGiatri >= 3)
+                {
+                    setIsOpenFormInvite(false)
+                }
+        
+            }
+        })
 
     const handleCancel = () => {
         document.getElementsByClassName('test')[0].style.display = 'none';
@@ -62,7 +93,6 @@ export default function Group() {
         document.getElementsByClassName('perform-del')[0].style.display = 'none';
         document.getElementsByClassName('form-group')[0].style.display = 'block';
     };
-
     const handlePerformOK = () => {
         document.getElementsByClassName('perform-del')[0].style.display = 'block';
         document.getElementsByClassName('form-group')[0].style.display = 'block';
@@ -70,6 +100,9 @@ export default function Group() {
         {members.map((member, index) => (
             array.push(member.uid)
         ))}
+
+        console.log({array})
+
         if (array[0] == uid)
         {
         deleteDoc(doc(db, 'rooms', selectedRoomId));
@@ -81,9 +114,8 @@ export default function Group() {
         }
         document.getElementsByClassName('perform-del')[0].style.display = 'none';
     };
-
     const [roomName, setRoomName] = useState('');
-    const [listgroup, setListgroup] = React.useState([]);
+
     React.useEffect(() => {
         let tmp = [];
         rooms.forEach((room) => {
@@ -93,6 +125,7 @@ export default function Group() {
         });
         setListgroup([...tmp]);
     }, [rooms]);
+
     return (
         <div className={cx('all-group')}>
             <Collapse>
@@ -141,7 +174,7 @@ export default function Group() {
                     </div>
 
                     <Form.Item className={cx('add-name')} label="Tên phòng" name="name">
-                        <Input className={cx('add-input-name')} placeholder="Nhập tên phòng" />
+                        <Input id={cx('add-input-name')}  className={cx('add-input-name')} placeholder="Nhập tên phòng" onChange={(e) => setGiatri2(e.target.value)}/>
                     </Form.Item>
                     <Form.Item className={cx('add-des')} label="Mô tả" name="description">
                         <Input.TextArea className={cx('add-input-des')} placeholder="Nhập mô tả" />
@@ -155,6 +188,14 @@ export default function Group() {
                     </button>
                     </div>
                 </div>
+            </Form>
+
+            <Form
+                layout="vertical"
+                className="open-des-form"
+                style={{ display: isOpenFormInvite }}
+                >
+                <ModalInviteMember/>
             </Form>
 
             <Form form={form} layout="vertical" className="perform-del" style={{ display: 'none' }}>
